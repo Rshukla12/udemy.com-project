@@ -14,8 +14,10 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SearchBar from "./SearchBar";
 import PopMenu from "./PopMenu";
 import SearchIcon from '@mui/icons-material/Search';
-import OutlinedBtn from "../Buttons/OulinedBtn";
+import OutlinedBtn from "../Buttons/OutlinedBtn";
 import ContainedBtn from "../Buttons/ContainedBtn";
+
+import { menus } from "./PopMenu";
 
 const pages = [
     {
@@ -28,8 +30,6 @@ const pages = [
         btn: "Learn More"
     }
 ];
-
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -92,18 +92,18 @@ const Navbar = () => {
                                     display: { xs: "block", md: "none" },
                                 }}
                             >
-                                {pages.map((page) => (
-                                    <MenuItem key={page.text} onClick={handleCloseNavMenu}>
-                                        <Typography textAlign="center">{page.text}</Typography>
+                                {menus.map((page) => (
+                                    <MenuItem key={page.Field+"1"} onClick={handleCloseNavMenu}>
+                                        <Typography textAlign="center">{page.Field}</Typography>
                                     </MenuItem>
                                 ))}
                             </Menu>
                         </Box>
                         <Box
-                            sx={{ flexGrow: 0, display: { xs: "flex", md: "none" }, paddingRight: "10rem", maxWidth: "6rem" }}
+                            sx={{ display: { xs: "flex", md: "none" }, width: "80%"}}
                         >
                             <img
-                                style={{ width: "100%" }}
+                                style={{ width: "6rem", margin: "auto" }}
                                 src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg" alt="logo"
                             />
                         </Box>

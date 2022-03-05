@@ -4,7 +4,7 @@ import MenuList from '@mui/material/MenuList';
 import NavbarToolTip from './NavbarTooltip';
 
 
-const menus = [
+export const menus = [
   {
     "Field": "Development",
     "Data": ["Web Development", "Data Science", "Mobile Development", "Mobile Devices", "Programming", "Web Development", "Data Science", "Mobile Development", "Mobile Devices", "Programming"]
