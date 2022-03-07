@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Container from '@mui/material/Container';
+import { BrowserRouter} from 'react-router-dom';
+import { ThemeProvider,createTheme } from '@mui/material/styles';
+import AllRoutes from './routes/AllRoutes';
+import Navbar from './components/Navbar2/Navbar';
+import Footer from './components/Footer/Footer';
+const theme = createTheme();
 
-function App() {
+const App = () => {
+  const user = JSON.parse(localStorage.getItem('profile'));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+    <ThemeProvider theme={theme}>
+    <Navbar/>
+       <AllRoutes/>
+      <Footer/>
+      </ThemeProvider>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
