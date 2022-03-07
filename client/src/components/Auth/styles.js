@@ -1,6 +1,7 @@
 import { makeStyles } from '@mui/styles';
 export default makeStyles((theme) => ({
   paper: {
+    color:"black",
     marginTop: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
@@ -54,7 +55,6 @@ export default makeStyles((theme) => ({
     fontWeight:"800",
     textTransform: 'none',
     borderRadius:0,
-
     boxShadow: "1px 1px 1px #88888",
     '&:hover': {
       background: "whitesmoke",
