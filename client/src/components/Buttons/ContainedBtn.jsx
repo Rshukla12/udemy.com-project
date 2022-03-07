@@ -1,10 +1,11 @@
 import Button from "@mui/material/Button";
 
-const ContainedBtn = ({ text, onClick, sx }) => {
+const ContainedBtn = ({ text, onClick, sx, ...props }) => {
     return (
         <Button
             variant="contained"
             disableRipple
+            {...props}
             sx={{
                 bgColor: "black",
                 color: "white",

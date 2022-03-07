@@ -1,16 +1,11 @@
-import React,{ useState} from 'react';
 import Button from "@mui/material/Button";
-// import {Link} from 'react-router-dom'
-// import Form from '../Form/Form';
 
-const ContainedBtn = ({ text, onClick, sx,component, to}) => {
-    // const [currentId, setCurrentId] = useState(0);
+const ContainedBtn = ({ text, onClick, sx, ...props }) => {
     return (
         <Button
             variant="contained"
-            component={component}
-            to={to}
             disableRipple
+            {...props}
             sx={{
                 bgColor: "black",
                 color: "white",
@@ -31,7 +26,7 @@ const ContainedBtn = ({ text, onClick, sx,component, to}) => {
                 ...sx
             }}
         >
-           {text}
+            {text}
         </Button>
     )
 };

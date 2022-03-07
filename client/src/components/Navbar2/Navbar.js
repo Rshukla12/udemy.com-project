@@ -238,9 +238,6 @@ const Navbar = () => {
                       {user?.result.name.charAt(0)}
                     </Avatar>
                   </Tooltip>
-                  {/* <Typography className={classes.userName} variant="h6">
-                    {user?.result.name}
-                  </Typography> */}
                   <Button
                     variant="contained"
                     className={classes.logout}
@@ -251,51 +248,22 @@ const Navbar = () => {
                   </Button>
                 </div>
               ) : (
-                <Button
-                  variant="outlined"
-                  component={Link}
-                  to="/auth"
-                  disableRipple
-                  // onClick={onClick}
-                  sx={{
-                    color: "black",
-                    border: "1px solid #000",
-                    textTransform: "none",
-                    fontWeight: "600",
-                    borderRadius: "0px",
-                    pt: 1,
-                    px: 2,
-                    height: "40px",
-                    minWidth: "100px",
-                    "&:hover": {
-                      bgcolor: "#f3f3f3",
-                      borderColor: "black",
-                    },
-                    // ...sx
-                  }}
-                >
-                  Sign In
-                </Button>
-                // <OutlinedBtn component={Link} to="/auth" text="Log in" />
-                //   <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
+                <>
+                  <OutlinedBtn text="Sign in" component={Link} to="/auth" />
+                  <ContainedBtn text="Sign up" />
+                </>
               )}
-
-              {!user?.result && (
-                <ContainedBtn text="Sign up" component={Link} to="/auth" />
-              )}
-              {!user?.result && (
-                <IconButton
-                  variant="outlined"
-                  sx={{
-                    color: "black",
-                    borderRadius: "0px",
-                    height: "40px",
-                    border: "1px solid #444",
-                  }}
-                >
-                  <LanguageIcon />
-                </IconButton>
-              )}
+              <IconButton
+                variant="outlined"
+                sx={{
+                  color: "black",
+                  borderRadius: "0px",
+                  height: "40px",
+                  border: "1px solid #444",
+                }}
+              >
+                <LanguageIcon />
+              </IconButton>
             </Stack>
           </Stack>
         </Toolbar>

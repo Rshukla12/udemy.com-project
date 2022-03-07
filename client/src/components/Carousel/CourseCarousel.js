@@ -1,6 +1,7 @@
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 import CourseCard from "../CourseCard/CourseCard";
 import Carousel from './Carousel';
 
@@ -106,16 +107,24 @@ const data = [{
 }];
 
 
-const CourseCarousel = ({ courses = data }) => {
+const CourseCarousel = ({ courses = data, isLoading }) => {
   return (
       <Box sx={{pt: 0, mt: 0}}>
-        <Carousel len={courses.length}>
-          {
-            courses.map(course => (
-              <CourseCard key={course.id} course={course} />
-            ))
-          }
-        </Carousel>
+        {
+          isLoading ? (
+            <Box sx={{width: "100%", minWidth: "30rem", minHeight: "25rem", m: "auto", height: "100%", display: "flex", justifyContent: "center"}}>
+              <CircularProgress sx={{minHeight: "15rem", minWidth: "15rem" }}/>
+            </Box>
+          ) : (
+            <Carousel len={courses.length}>
+              {
+                courses.map(course => (
+                  <CourseCard key={course.id*8912 + 1} course={course} />
+                ))
+              }
+            </Carousel>
+          )
+        }
       </Box>
   )
 };

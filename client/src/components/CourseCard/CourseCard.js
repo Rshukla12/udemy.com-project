@@ -9,8 +9,10 @@ import RatingComponent from './RatingComponent';
 import CourseToolTip from "./CourseToolTip";
 
 const CourseCard = ({ course }) => {
-    let { img, title, instructor, rating, price, onSale, noOfRatings, tagline, details, id } = course;
-    instructor = instructor.join(", ");
+    let { img, title, instructors, rating, price, onSale, noOfRatings, tagline, details, id } = course;
+    const result = "";
+    instructors?.forEach((i, ind) => i.user.name + ", ");
+    instructors = result;
     let salePrice = 700;
     const isLogin = true;
     if (isLogin) salePrice = 399;
@@ -29,7 +31,7 @@ const CourseCard = ({ course }) => {
                         {title}
                     </Typography>
                     <Typography variant="subtitle2" color="text.secondary">
-                        {instructor}
+                        {instructors}
                     </Typography>
                     <RatingComponent rating={rating} noOfRatings={noOfRatings} />
                     <Stack

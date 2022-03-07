@@ -1,11 +1,12 @@
 import Button from "@mui/material/Button";
 
-const OutlinedBtn = ({ sx, text, onClick }) => {
+const OutlinedBtn = ({ sx, text, onClick, ...props }) => {
     return (
         <Button
             variant="outlined"
             disableRipple
             onClick={onClick}
+            {...props}
             sx={{
                 color: "black",
                 border: "1px solid #000",
