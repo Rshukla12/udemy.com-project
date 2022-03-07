@@ -54,8 +54,8 @@ const Post = ({ post, setCurrentId }) => {
 
   return (
     <div>
-      <div style={{display: 'flex',borderBottom: '1px solid grey',margin:-10}}>
-        <div style={{width:"30%",marginTop:30}}>
+      <div style={{display: 'flex',borderBottom: '1px solid rgb(220,220,220)',margin:-10}}>
+        <div style={{width:"30%",marginTop:22}}>
         <img src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} style={{width:"250px",height:"150px",borderLeft:"1px solid black",borderRadius:"5px"}} />
           </div>
         <div style={{width:"60%",padding:"20px",marginLeft:"40px"}}>
@@ -78,16 +78,16 @@ const Post = ({ post, setCurrentId }) => {
           </Button>
         </div>
         )} */}
-          <p style={{marginLeft:-10,marginTop:5,lineHeight:1.5,fontSize:15}}>{post.message.split(' ').splice(0, 20).join(' ')}...</p>
-          <p style={{marginLeft:-10,marginTop:-10,lineHeight:1.5,fontSize:15,fontWeight:"700"}}>{post.name}</p>
-          <p style={{marginLeft:-10,marginTop:-10,fontSize:15,lineHeight:1.5}}>{post.rating}{<StarRateRoundedIcon/>}{<StarRateRoundedIcon/>}{<StarRateRoundedIcon/>}{<StarRateRoundedIcon/>}{<StarHalfRoundedIcon/>}</p>
+          <p style={{marginLeft:-10,marginTop:5,lineHeight:1.5,fontSize:14}}>{post.message.split(' ').splice(0, 20).join(' ')}...</p>
+          <p style={{marginLeft:-10,marginTop:-10,lineHeight:1.5,fontSize:12,fontWeight:"700"}}>{post.name}</p>
+          <p style={{marginLeft:-10,marginTop:-10,fontSize:12}}><span >Rating:{post.rating}</span></p>
           <div style={{marginLeft:-10,marginTop:-10,fontSize:15}}>
-          <span style={{color:"grey",fontSize:"14px"}}>{post.total_hrs} total hours</span>
-          <span style={{color:"grey",marginLeft:"5px",fontSize:"14px"}}><span style={{fontWeight:"900"}}>.</span>{post.total_lecture} total lectures</span>
-          <span style={{color:"grey",marginLeft:"5px",fontSize:"14px"}}><span style={{fontWeight:"900"}}>.</span>{post.level}</span>
+          <span style={{color:"grey",fontSize:"12px"}}>{post.total_hrs} total hours</span>
+          <span style={{color:"grey",marginLeft:"5px",fontSize:"12px"}}><span style={{fontWeight:"900"}}>.</span>{post.total_lecture} total lectures</span>
+          <span style={{color:"grey",marginLeft:"5px",fontSize:"12px"}}><span style={{fontWeight:"900"}}>.</span>{post.level}</span>
           </div>
         <div style={{marginLeft:-10,marginTop:5,fontSize:15}}>
-          <p>{post.tags.map((tag) => <span style={{backgroundColor:"rgb(243,202,140)",padding:"3px",margin:"2px"}}>{`#${tag} `}</span>)}</p>
+          <p>{post.tags.map((tag) => <span style={{backgroundColor:"rgb(243,202,140)",borderRadius:"2px",padding:"3px",margin:"2px"}}>{`#${tag} `}</span>)}</p>
         </div>
         
           </div>

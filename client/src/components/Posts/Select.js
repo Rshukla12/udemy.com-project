@@ -15,7 +15,7 @@ export default function SelectLabels() {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
+      <FormControl sx={{ m: 4,ml:-2, minWidth: 120 }}>
         <InputLabel id="demo-simple-select-helper-label">Sort By</InputLabel>
         <Select
           labelId="demo-simple-select-helper-label"

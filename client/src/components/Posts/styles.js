@@ -70,7 +70,9 @@ export default makeStyles((theme) => ({
     display: 'flex'
   },
   grid1:{
-    width:"25%",
+    width:"22%",
+    marginLeft: '30px',
+    marginRight:"30px",
     [theme.breakpoints.down(1100)]: {
       display:"none",
       visibility:"hidden"
@@ -78,6 +80,9 @@ export default makeStyles((theme) => ({
   },
   grid2:{
     width:"70%",
+    paddingLeft:"20px",
+    paddingRight:"20px",
+    border:"1px solid rgb(220,220,220)",
     borderBottom:"1px solid grey",
     [theme.breakpoints.down(1100)]: {
      width:"90%",
