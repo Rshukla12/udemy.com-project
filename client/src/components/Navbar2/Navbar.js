@@ -45,6 +45,7 @@ const Navbar = () => {
     const location = useLocation();
     const history = useHistory();
     const classes = useStyles();
+    
   
     const logout = () => {
       dispatch({ type: actionType.LOGOUT });
@@ -164,6 +165,8 @@ const Navbar = () => {
                                                 py: 1,
                                             }} 
                                         >
+
+{/* === "Turn what you know into an opportunity and reach millions around the world." ? <></> : <div></div> */}
                                             {page.body}
                                         </Typography>
                                         <ContainedBtn text={page.btn} sx={{px: 3, py: 2.5, height: "30px",minWidth: "stretch"}} />

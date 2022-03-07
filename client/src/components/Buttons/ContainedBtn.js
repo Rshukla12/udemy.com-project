@@ -1,6 +1,10 @@
+import React,{ useState} from 'react';
 import Button from "@mui/material/Button";
+// import {Link} from 'react-router-dom'
+// import Form from '../Form/Form';
 
 const ContainedBtn = ({ text, onClick, sx,component, to}) => {
+    // const [currentId, setCurrentId] = useState(0);
     return (
         <Button
             variant="contained"
@@ -27,7 +31,7 @@ const ContainedBtn = ({ text, onClick, sx,component, to}) => {
                 ...sx
             }}
         >
-            {text}
+           {text}
         </Button>
     )
 };
