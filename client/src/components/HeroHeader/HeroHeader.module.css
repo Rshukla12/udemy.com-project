@@ -1,0 +1,36 @@
+.card {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    width: 80%;
+    max-width: 22rem;
+    padding: 1.5% 3% 1.5% 2%;
+    text-align: left;
+    border-radius: 0% !important;
+}
+
+.img {
+    width: 100%;
+}
+
+@media screen and ( max-width: 728px ) {
+    .card {
+        position: relative;
+        top: 0%;
+        left: 15%;
+        text-align: left;
+        border-radius: 0% !important;
+    }
+    
+}
+
+@media screen and ( max-width: 578px ) {
+    .card {
+        position: relative;
+        top: 0%;
+        left: 9%;
+        text-align: left;
+        border-radius: 0% !important;
+    }
+    
+}
