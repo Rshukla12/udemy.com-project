@@ -31,13 +31,13 @@ const Home = () => {
   const searchPost = () => {
     if (search.trim() || tags) {
       dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
-      history.push(`/posts/search?searchQuery=${search || 'none'}`);
+      history.push(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
     } else {
       history.push('/');
     }
   };
 
-  // &tags=${tags.join(',')}
+  // 
   const handleKeyPress = (e) => {
     if (e.keyCode === 13) {
       searchPost();
