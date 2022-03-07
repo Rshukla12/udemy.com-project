@@ -9,7 +9,7 @@ import { createPost, updatePost } from '../../redux/actions/posts';
 import useStyles from './styles';
 
 const Form = ({ currentId, setCurrentId }) => {
-  const [postData, setPostData] = useState({ title: '', message: '', tags: [], selectedFile: '' });
+  const [postData, setPostData] = useState({ title: '',rating:0,total_hrs:0,total_lecture:0,level: '',course_cost: 0,message: '', tags: [], selectedFile: '' });
   const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -18,7 +18,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const clear = () => {
     setCurrentId(0);
-    setPostData({ title: '', message: '',rating:0,total_hrs:0,total_lecture:0,level: '',tags: [], selectedFile: '' });
+    setPostData({ title: '', message: '',rating:0,total_hrs:0,total_lecture:0,level: '',course_cost:0,tags: [], selectedFile: '' });
   };
 
   useEffect(() => {
@@ -63,9 +63,10 @@ const Form = ({ currentId, setCurrentId }) => {
         <TextField name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
         <TextField name="message" variant="outlined" label="Message" fullWidth multiline rows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
         <TextField name="rating" variant="outlined" label="Rating" fullWidth value={postData.rating} onChange={(e) => setPostData({ ...postData, rating: e.target.value })} />
-        <TextField name="total_hrs" variant="outlined" label="Total_hrs" fullWidth value={postData.total_hrs} onChange={(e) => setPostData({ ...postData, total_hrs: e.target.total_hrs })} />
-        <TextField name="total_lecture" variant="outlined" label="Total_lecture" fullWidth value={postData.total_lecture} onChange={(e) => setPostData({ ...postData, total_lecture: e.target.total_lecture })} />
-        <TextField name="level" variant="outlined" label="level" fullWidth value={postData.level} onChange={(e) => setPostData({ ...postData, level: e.target.level })} />
+        <TextField name="total_hrs" variant="outlined" label="Total_hrs" fullWidth value={postData.total_hrs} onChange={(e) => setPostData({ ...postData, total_hrs: e.target.value })} />
+        <TextField name="total_lecture" variant="outlined" label="Total_lecture" fullWidth value={postData.total_lecture} onChange={(e) => setPostData({ ...postData, total_lecture: e.target.value })} />
+        <TextField name="level" variant="outlined" label="level" fullWidth value={postData.level} onChange={(e) => setPostData({ ...postData, level: e.target.value })} />
+        <TextField name="course_cost" variant="outlined" label="Course_Cost" fullWidth value={postData.course_cost} onChange={(e) => setPostData({ ...postData, course_cost: e.target.value })} />
 
         <div style={{ padding: '5px 0', width: '94%' }}>
           <ChipInput

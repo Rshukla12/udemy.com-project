@@ -60,7 +60,7 @@ const Post = ({ post, setCurrentId }) => {
           </div>
         <div style={{width:"60%",padding:"20px",marginLeft:"40px"}}>
         <button onClick={openPost} style={{backgroundColor:"white",border:0,margin:-10,padding:-10}}>
-        <p style={{marginLeft:-10,lineHeight:"1px",fontSize:"16px",fontWeight:"bold"}}>{post.title}</p>
+        <p style={{marginLeft:-10,lineHeight:"1px",fontSize:"16px",fontWeight:"bold"}}><span>{post.title}</span><span style={{border:"1px solid black",height:"20px"}}>{post.course_cost}</span></p>
         </button>
         {/* <h2>{post.name}</h2> */}
         {/* <h2>{moment(post.createdAt).fromNow()}</h2> */}
