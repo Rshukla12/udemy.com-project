@@ -48,4 +48,6 @@ const CommentSection = ({ post }) => {
   );
 };
 
+// import CommentSection from './CommentSection';
+{/* <CommentSection post={post} /> */}
 export default CommentSection;
