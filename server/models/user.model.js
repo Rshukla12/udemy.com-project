@@ -12,8 +12,7 @@ const userSchema = new mongoose.Schema({
         unique: true
     },
     password: {
-        type: String,
-        required: true
+        type: String
     },
     cart: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -34,7 +33,10 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "review",
         required: false
-    }]
+    }],
+    isGoogle: {
+        type: Boolean
+    }
 },{
     versionKey: false,
     timestamps: true
