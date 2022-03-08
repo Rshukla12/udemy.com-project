@@ -14,16 +14,23 @@ import TwoSection from "../../components/DividedSection/DividedSection";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { getPostsBySearch } from '../../redux/actions/posts';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import * as api from '../../api/index.js';
 
 
 const HomePage = () => {
-    const { posts, isLoading } = useSelector((state) => state.posts);
-    const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(true);
+    const [posts, setPost] = useState(null);
 
-    useEffect(()=> {
-        dispatch(getPostsBySearch({ tags: ["python, javascript"].join(',') }))
+    useEffect(async () => {
+        setIsLoading(true);
+        const {
+            data
+        } = await api.fetchPosts(1);
+        setPost(data);
+        setIsLoading(false);
     }, []);
+
 
     return (
         <Stack spacing={4}>

@@ -16,8 +16,8 @@ const HtmlTooltip = styled(({ className, ...props }) => (
     [`& .${tooltipClasses.tooltip}`]: {
         backgroundColor: 'white',
         color: 'rgba(0, 0, 0, 0.87)',
-        width: 320,
-        height: 400,
+        width: 360,
+        minHeight: 400,
         fontSize: theme.typography.pxToRem(12),
         border: '0.25px solid #55555551',
         borderRadius: 0,
@@ -29,15 +29,11 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 }));
 
 
-const CourseToolTip = ({ title, tagline, details, id, children }) => {
-    let limit = 45;
+const CourseToolTip = ({ title, tagline, details=[], id, children }) => {
     const matches = useMediaQuery('(min-width:900px)');
-    const pts = [];
-    for ( let i = 0; i < 3; i++ ){
-        if ( tagline.length > ( i * limit ) ) 
-            pts.push( tagline.slice(i * limit, ( i + 1 ) * limit ) )
-    };
-    if ( tagline.length >= 200 ) tagline = tagline.slice(1, 197) + "..."
+    if ( tagline.length >= 100 ) tagline = tagline.slice(0, 97) + "..."
+    if ( title.length >= 48 ) title = title.slice(0, 44) + "..."
+    
     return (
         <div>
             <HtmlTooltip
@@ -49,14 +45,14 @@ const CourseToolTip = ({ title, tagline, details, id, children }) => {
                         px: 2,
                         py: 1
                     }}>
-                        <Typography variant="h4" color="inherit" sx={{fontWeight: 500}}>{title}</Typography>
+                        <Typography variant="h3" color="inherit" sx={{fontWeight: 600, fontSize: "0.99rem"}}>{title}</Typography>
                         <Typography variant="body1" color="inherit" >{tagline}</Typography>
                         <Stack spacing={2} direction="column" >
                             {
-                                pts.map(( pt, ind) => (
+                                details.map(( p, ind) => (
                                     <Stack key={ind*321} spacing={1} direction="row">
                                         <CheckRoundedIcon />        
-                                        <Typography variant="body1" color="inherit" sx={{fontWeight: 500}}>{pt}</Typography>
+                                        <Typography variant="body1" color="inherit" sx={{fontWeight: 500}}>{p}</Typography>
                                     </Stack>
                                 ))
                             }

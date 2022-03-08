@@ -9,6 +9,8 @@ const getCourses = async (req, res) => {
         const skip = page_no ? page_no > 1 ? ( page_no - 1 ) * per_page : 0 : 0;
         sort = sort || "asc";
         
+        const total = await Course.countDocuments({});
+        
         let result = await Course.find({})
             .sort({ purchased: sort })
             .skip(skip)
@@ -21,7 +23,7 @@ const getCourses = async (req, res) => {
             .exec();
         if (!result || !result.length)
             return res.status(404).json({ msg: "courses doesn't exist!" });
-        res.status(200).json(result);
+        res.status(200).json({data: result, currentPage: Number(page_no) || 1, numberOfPages: Math.ceil(total / limit)});
     } catch (err) {
         console.log(err);
         res.status(500).json({ msg: "something went wrong!" });

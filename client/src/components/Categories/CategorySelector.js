@@ -59,8 +59,9 @@ const CategorySelector = () => {
   useEffect(async () => {
     setIsLoading(true);
     const {
-      data: { data },
-    } = await api.fetchPostsBySearch({ tags: categoryList[active].title });
+      data
+    } = await api.fetchPostsByTag( categoryList[active].title );
+    console.log(data)
     setPost(data);
     setIsLoading(false);
     console.log(data)
@@ -112,7 +113,7 @@ const CategorySelector = () => {
                 text={"Explore " + categoryList[active].title}
               />
             </Stack>
-            <CourseCarousel course={posts} isLoading={isLoading} />
+            <CourseCarousel courses={posts} isLoading={isLoading} />
           </Stack>
         </Stack>
       </Box>

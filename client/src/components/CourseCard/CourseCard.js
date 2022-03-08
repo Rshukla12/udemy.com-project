@@ -9,31 +9,31 @@ import RatingComponent from './RatingComponent';
 import CourseToolTip from "./CourseToolTip";
 
 const CourseCard = ({ course }) => {
-    let { img, title, instructors, rating, price, onSale, noOfRatings, tagline, details, id } = course;
-    const result = "";
-    instructors?.forEach((i, ind) => i.user.name + ", ");
+    let { img, course_name, instructors, rating, price, on_sale, no_of_ratings, tagline, description, id, purchased, wishlisted } = course;
+    let result = "";
+    instructors?.forEach((i, ind) => result += ( i.name ? i.name : "jon doe" ) + ", " );
     instructors = result;
     let salePrice = 700;
     const isLogin = true;
     if (isLogin) salePrice = 399;
-    const newPrice = (onSale && price > salePrice) ? salePrice : price;
+    const newPrice = (on_sale && price > salePrice) ? salePrice : price;
     return (
-        <CourseToolTip title={title} tagline={tagline} details={details} id={id}>
+        <CourseToolTip title={course_name} tagline={tagline} details={description} id={id}>
             <Card sx={{ width: 250, borderRadius: 0, cursor: "pointer" }} elevation={0} >
                 <CardMedia
-                    sx={{borderRadius: 0, height: 150}}
+                    sx={{borderRadius: 0, minHeight: 150}}
                     component="img"
                     image={img}
-                    alt={title}
+                    alt={course_name}
                 />
                 <CardContent sx={{ height: 110, px: 0, py: 1, textAlign: "left" }}>
                     <Typography gutterBottom variant="body1" component="div" sx={{ fontWeight: 600, mb: 0 }}>
-                        {title}
+                        {course_name}
                     </Typography>
                     <Typography variant="subtitle2" color="text.secondary">
                         {instructors}
                     </Typography>
-                    <RatingComponent rating={rating} noOfRatings={noOfRatings} />
+                    <RatingComponent rating={rating} noOfRatings={no_of_ratings} />
                     <Stack
                         direction="row"
                         spacing={1.5}
@@ -42,7 +42,7 @@ const CourseCard = ({ course }) => {
                             &#8377;{salePrice < price ? salePrice : price}
                         </Typography>
                         { 
-                            onSale && ( price !== newPrice ) ? ( 
+                            on_sale && ( price !== newPrice ) ? ( 
                                 <Typography variant="body1" color="text.secondary" sx={{textDecoration: "line-through"}} >
                                     &#8377;{price}
                                 </Typography>
