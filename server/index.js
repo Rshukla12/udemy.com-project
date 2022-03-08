@@ -1,11 +1,18 @@
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+require('dotenv').config();
 
-import express from 'express';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
-import cors from 'cors';
+const Review = require("./models/review.model");
+const Course = require("./models/review.model");
 
-import postRoutes from './routes/posts.js';
-import userRouter from "./routes/user.js";
+const postRoutes = require('./routes/posts');
+const userRouter = require('./routes/user');
+const cartRouter = require('./routes/cart.route');
+const wishlistRouter = require('./routes/wishlist.route');
+const courseRouter = require('./routes/course.route');
+const instructorRouter = require('./routes/instructor.route');
+const searchRouter = require('./routes/search.route');
 
 const app = express();
 
@@ -16,7 +23,13 @@ app.use(cors());
 app.use('/posts', postRoutes);
 app.use("/user", userRouter);
 
-const CONNECTION_URL = 'mongodb+srv://udemydb:PSYfCUEnsHDAC0JA@cluster0.vcsmq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+app.use('/cart', cartRouter);
+app.use("/wishlist", wishlistRouter);
+app.use("/course", courseRouter);
+app.use("/instructor", instructorRouter);
+app.use("/search", searchRouter);
+
+const CONNECTION_URL = process.env.MONGO;
 const PORT = process.env.PORT|| 5000;
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
