@@ -6,8 +6,12 @@ const instructorSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
+    creator: {
+        type: String,
+        required: true
+    },
     info: {
-        types: String,
+        type: String,
         required: true
     },
     courses: [{

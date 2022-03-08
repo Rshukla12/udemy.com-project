@@ -76,7 +76,7 @@ export const likePost = (id) => async (dispatch) => {
   const user = JSON.parse(localStorage.getItem('profile'));
 
   try {
-    const { data } = await api.likePost(id, user?.token);
+    const { data } = await api.addToWishlist(id, user?.token);
 
     dispatch({ type: LIKE, payload: data });
   } catch (error) {
@@ -84,24 +84,24 @@ export const likePost = (id) => async (dispatch) => {
   }
 };
 
-export const commentPost = (value, id) => async (dispatch) => {
-  try {
-    const { data } = await api.comment(value, id);
+// export const commentPost = (value, id) => async (dispatch) => {
+//   try {
+//     const { data } = await api.comment(value, id);
 
-    dispatch({ type: COMMENT, payload: data });
+//     dispatch({ type: COMMENT, payload: data });
 
-    return data.comments;
-  } catch (error) {
-    console.log(error);
-  }
-};
+//     return data.comments;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
-export const deletePost = (id) => async (dispatch) => {
-  try {
-    await await api.deletePost(id);
+// export const deletePost = (id) => async (dispatch) => {
+//   try {
+//     await await api.deletePost(id);
 
-    dispatch({ type: DELETE, payload: id });
-  } catch (error) {
-    console.log(error);
-  }
-};
+//     dispatch({ type: DELETE, payload: id });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };

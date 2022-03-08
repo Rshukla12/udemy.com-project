@@ -1,4 +1,4 @@
-const mongoose = requrie("mongoose");
+const mongoose = require("mongoose");
 
 const courseSchema = new mongoose.Schema({
     course_name: {
@@ -16,8 +16,8 @@ const courseSchema = new mongoose.Schema({
         required: true
     }],
     img: {
-        type: String, 
-        required: true
+        type: String,
+        default: "https://deejayfarm.com/wp-content/uploads/2019/10/Profile-pic.jpg" 
     },
     reviews: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -36,18 +36,29 @@ const courseSchema = new mongoose.Schema({
         type:  Number, 
         required:  true
     },
-    description: {
+    description: [{
         type: String, 
         required: true
-    },
-    topic: {
+    }],
+    tags: [{
         type: String, 
-        required: true 
+        required: true
+    }],
+    purchased: {
+        type: Number, 
+        default: 0
+    },
+    wishlisted: {
+        type: Number, 
+        default: 0
     },
     languages: [{
         type: String,
         required: true
-    }]
+    }],
+    level: {
+        type: String
+    } 
 },{
     versionKey: false,
     timestamps: true

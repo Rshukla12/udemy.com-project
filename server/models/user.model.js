@@ -12,29 +12,32 @@ const userSchema = new mongoose.Schema({
         unique: true
     },
     password: {
-        type: String,
-        required: true
+        type: String
     },
     cart: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "course",
+        ref: "Course",
         required: false
     }],
     wishlist: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "course",
+        ref: "Course",
         required: false
     }],
     purchased: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "course",
+        ref: "Course",
         required: false
     }],
     reviews: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "review",
+        ref: "Review",
         required: false
-    }]
+    }],
+    isGoogle: {
+        type: Boolean,
+        default: false
+    }
 },{
     versionKey: false,
     timestamps: true
