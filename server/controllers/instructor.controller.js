@@ -1,4 +1,5 @@
 const Instructor = require("../models/instructor.model");
+const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 
 const secret = process.env.SECRET;
@@ -54,17 +55,17 @@ const getInstructorById = async (req, res) => {
 const createInstructor = async (req, res) => {
     try {
         let user = req.user;
-        const { info } = req.body;
-        if (!user) user = await user.create({ email, password, name: `${fullName}` });
+        const { info, email, fullName, password } = req.body;
+        if (!user) user = await User.create({ email, password, name: `${fullName}` });
         else {
             const isAlreadyInstructor = await Instructor.findOne({user: user._id});
             
             if ( isAlreadyInstructor ) return res.status(400).json({msg: "Already instructor!"});
         }
 
-        const result = await Instructor.create({info, name: user.name, courses: [], user: user});
+        const result = await Instructor.create({info, creator: user.name, courses: [], user: user});
         
-        const token = jwt.sign( { id: result._id }, secret, { expiresIn: "1h" });
+        const token = jwt.sign( { id: user._id }, secret, { expiresIn: "1h" });
         
         res.status(201).json({token});
     } catch (err) {

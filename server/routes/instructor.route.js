@@ -9,6 +9,6 @@ router.get("/", instructorController.getInstructors);
 
 router.get("/:id", instructorController.getInstructorById);
 
-router.post("/", auth, instructorController.createInstructor);
+router.post("/", instructorController.createInstructor);
 
 module.exports = router;

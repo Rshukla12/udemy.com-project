@@ -5,24 +5,24 @@ const getSuggestions = () => {
 };
 
 const getCourses = async (req, res) => {
-    let { searchQuery, tags, sort, per_page, page_no } = req.query;
+    let { searchQuery, tags, sort, order_by, per_page, page_no } = req.query;
     const limit = per_page || 30;
     const skip = page_no ? page_no > 1 ? ( page_no - 1 ) * per_page : 0 : 0;
-    sort = sort || "asc";
+    sort = sort || "views";
     try {
         const query = [];
-        const title = new RegExp(searchQuery, "i");
+        const title = searchQuery !== "none" ? new RegExp(searchQuery, "i") : "";
         if ( title ) query.push({course_name: title });
-        if ( tags ) query.push( { tags:  {$in: tags.split(",") } } );
+        if ( tags ) query.push( { tags:  {$in: tags.split(",%20") } } );
         
         const result = await Course.find({
                 $or: [ ...query, {
                     "instructors": {
-                        $elemMatch: { name: title }
+                        $elemMatch: { creator: title }
                     }
                 }],
             })
-            .sort({ purchased: sort })
+            .sort(`-${sort}`)
             .skip(skip)
             .limit(Number(limit))
             .populate({

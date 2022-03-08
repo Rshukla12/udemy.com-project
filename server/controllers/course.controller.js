@@ -4,12 +4,12 @@ const User = require("../models/user.model");
 
 const getCourses = async (req, res) => {
     try {
-        let { sort, per_page, page_no } = req.query;
+        let { sort, per_page, page_no, name } = req.query;
         const limit = per_page || 30;
         const skip = page_no ? page_no > 1 ? ( page_no - 1 ) * per_page : 0 : 0;
         sort = sort || "asc";
         
-        let result = await Course.find()
+        let result = await Course.find({})
             .sort({ purchased: sort })
             .skip(skip)
             .limit(Number(limit))
@@ -57,8 +57,8 @@ const getCourseByTag = async (req, res) => {
         const skip = page_no ? page_no > 1 ? ( page_no - 1 ) * per_page : 0 : 0;
         sort = sort || "asc";
         
-        const tag = req.params.tag;
-        const result = await Course.find({ tags: tag })
+        const tag = req.params.tagName?.toLowerCase();
+        const result = await Course.find({ tags: {$in: [ tag ]} })
             .sort({ purchased: sort })
             .limit(Number(limit))
             .skip(skip)

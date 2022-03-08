@@ -40,7 +40,7 @@ const courseSchema = new mongoose.Schema({
         type: String, 
         required: true
     }],
-    tag: [{
+    tags: [{
         type: String, 
         required: true
     }],
@@ -55,7 +55,10 @@ const courseSchema = new mongoose.Schema({
     languages: [{
         type: String,
         required: true
-    }]
+    }],
+    level: {
+        type: String
+    } 
 },{
     versionKey: false,
     timestamps: true
