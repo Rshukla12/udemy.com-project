@@ -53,7 +53,7 @@ const Home = () => {
        <div>
          
             <Posts setCurrentId={setCurrentId} />
-            <Form currentId={currentId} setCurrentId={setCurrentId} /> 
+            {/* <Form currentId={currentId} setCurrentId={setCurrentId} />  */}
             {(!searchQuery && !tags.length) && (
               <Paper className={classes.pagination} elevation={6}>
                 <Pagination page={page} />
