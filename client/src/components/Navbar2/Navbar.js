@@ -55,6 +55,8 @@ const Navbar = () => {
     setUser(null);
   };
 
+  const [btn,setBtn] = useState(false)
+
   useEffect(() => {
     const token = user?.token;
 
@@ -178,7 +180,8 @@ const Navbar = () => {
                       {page.body}
                     </Typography>
                     <ContainedBtn
-                      text={page.btn}
+                    text={page.btn}
+                      // {{page.btn} ==='Learn More' ? {page.btn} component={Link} to={'/auth'} : {page.btn}}
                       sx={{
                         px: 3,
                         py: 2.5,
