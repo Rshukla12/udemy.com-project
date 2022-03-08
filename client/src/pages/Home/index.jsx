@@ -25,9 +25,10 @@ const HomePage = () => {
     useEffect(async () => {
         setIsLoading(true);
         const {
-            data
+            data: {data}
         } = await api.fetchPosts(1);
         setPost(data);
+        console.log(data);
         setIsLoading(false);
     }, []);
 
