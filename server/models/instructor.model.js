@@ -6,6 +6,10 @@ const instructorSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
+    creator: {
+        type: String,
+        required: true
+    },
     info: {
         type: String,
         required: true

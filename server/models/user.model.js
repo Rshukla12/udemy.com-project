@@ -16,26 +16,27 @@ const userSchema = new mongoose.Schema({
     },
     cart: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "course",
+        ref: "Course",
         required: false
     }],
     wishlist: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "course",
+        ref: "Course",
         required: false
     }],
     purchased: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "course",
+        ref: "Course",
         required: false
     }],
     reviews: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "review",
+        ref: "Review",
         required: false
     }],
     isGoogle: {
-        type: Boolean
+        type: Boolean,
+        default: false
     }
 },{
     versionKey: false,
