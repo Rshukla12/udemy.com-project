@@ -9,6 +9,7 @@ const postSchema = mongoose.Schema({
     total_hrs:Number,
     total_lecture:Number,
     level:String,
+    course_cost:Number,
     tags: [String],
     selectedFile: String,
     likes: { type: [String], default: [] },
