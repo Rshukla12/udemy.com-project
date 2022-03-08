@@ -21,11 +21,11 @@ const Paginate = ({ page }) => {
 
   return (
     <Pagination
-      classes={{ ul: classes.ul }}
+      classes={{ul:classes.ul}}
       count={numberOfPages}
       page={Number(page) || 1}
       variant="outlined"
-      color="primary"
+      color="secondary"
       renderItem={(item) => (
         <PaginationItem {...item} component={Link} to={`/posts?page=${item.page}`} />
       )}
