@@ -2,12 +2,14 @@ const User = require("../models/user.model");
 
 const addToWishlist = async (req, res) => {
     try {
-        const { course_id } = req.body;
+        const { course_id, courses } = req.body;
         const user_id = req.user._id;
+        let query = course_id;
+        query = query || {$each: courses}
 
         const updatedWishlist = await User.findByIdAndUpdate(user_id,{
                 $addToSet: {
-                    wishlist: course_id,
+                    wishlist: query,
                 },
             },{
                 returnOriginal: false,
@@ -21,7 +23,7 @@ const addToWishlist = async (req, res) => {
 
         if (!updatedWishlist)
             return res.status(500).json({ msg: "something went wrong!!" });
-        res.status(500).json(updatedWishlist);
+        res.status(201).json(updatedWishlist);
     } catch (err) {
         console.log(err);
         res.status(500).json({ msg: "something went wrong!" });

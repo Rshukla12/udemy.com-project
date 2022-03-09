@@ -7,18 +7,19 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import RatingComponent from './RatingComponent';
 import CourseToolTip from "./CourseToolTip";
+import { useSelector } from "react-redux";
 
 const CourseCard = ({ course }) => {
-    let { img, course_name, instructors, rating, price, on_sale, no_of_ratings, tagline, description, id, purchased, wishlisted } = course;
+    const { isLogin } = useSelector(state=>state.auth);
+    let { img, course_name, instructors, rating, price, on_discount, no_of_ratings, tagline, description, _id: id, purchased, wishlisted } = course;
     let result = "";
     instructors?.forEach((i, ind) => result += ( i.name ? i.name : "jon doe" ) + ", " );
     instructors = result;
     let salePrice = 700;
-    const isLogin = true;
     if (isLogin) salePrice = 399;
-    const newPrice = (on_sale && price > salePrice) ? salePrice : price;
+    const newPrice = (on_discount && price > salePrice) ? salePrice : price;
     return (
-        <CourseToolTip title={course_name} tagline={tagline} details={description} id={id}>
+        <CourseToolTip title={course_name} course={course} tagline={tagline} details={description} id={id}>
             <Card sx={{ width: 250, borderRadius: 0, cursor: "pointer" }} elevation={0} >
                 <CardMedia
                     sx={{borderRadius: 0, minHeight: 150}}
@@ -42,7 +43,7 @@ const CourseCard = ({ course }) => {
                             &#8377;{salePrice < price ? salePrice : price}
                         </Typography>
                         { 
-                            on_sale && ( price !== newPrice ) ? ( 
+                            on_discount && ( price !== newPrice ) ? ( 
                                 <Typography variant="body1" color="text.secondary" sx={{textDecoration: "line-through"}} >
                                     &#8377;{price}
                                 </Typography>
