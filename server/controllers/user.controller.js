@@ -12,7 +12,7 @@ const signin = async (req, res) => {
         if (!oldUser)
             return res.status(404).json({ message: "User doesn't exist" });
 
-        const isPasswordCorrect = await bcrypt.comparePassword(password);
+        const isPasswordCorrect = await oldUser.comparePassword(password);
 
         if (!isPasswordCorrect)
             return res.status(400).json({ message: "Invalid credentials" });

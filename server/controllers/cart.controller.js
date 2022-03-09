@@ -2,23 +2,25 @@ const User = require("../models/user.model");
 
 const addToCart = async (req, res) => {
     try {
-        const { course_id } = req.body;
+        const { course_id, courses } = req.body;
         const user_id = req.user._id;
+        let query = course_id;
+        query = query || {$each: courses}
 
         const liked = await User.findByIdAndUpdate(user_id ,{
             $addToSet: {
-                cart: course_id,
+                cart: query,
             },
         },{
             returnOriginal: false,
         })
-        .populate("cart")
+        .populate({path: "cart"})
         .select("cart")
         .lean()
         .exec();
 
         if (!liked) return res.status(500).json({ msg: "something went wrong!!" });
-        res.status(500).json(liked);
+        res.status(201).json(liked);
     } catch (err) {
         console.log(err);
         res.status(500).json({ msg: "something went wrong!" });
@@ -37,7 +39,7 @@ const removeFromCart = async (req, res) => {
         },{
             returnOriginal: false,
         })
-        .populate("cart")
+        .populate({path: "cart"})
         .select("cart")
         .lean()
         .exec();
@@ -46,7 +48,7 @@ const removeFromCart = async (req, res) => {
         
         let total = 0;
         for (const item of updatedCart.cart) {
-            if (item.on_sale) total += 399;
+            if (item.on_discount) total += 399;
             else total += item.price;
         }
         res.status(201).json({cart: updatedCart.cart, total });
@@ -63,7 +65,7 @@ const getCart = async (req, res) => {
         const cart = await User.findById(user_id).populate({
             path: "cart",
         })
-        .select("cart")
+        .select({path: "cart"})
         .lean()
         .exec();
 
@@ -72,7 +74,7 @@ const getCart = async (req, res) => {
         
         let total = 0;
         for (const item of cart.cart) {
-            if (item.on_sale) total += 399;
+            if (item.on_discount) total += 399;
             else total += item.price;
         }
         res.status(200).json({ cart: cart.cart, total: total, items: cart.length });
@@ -109,16 +111,14 @@ const order = async (req, res) => {
 
         let total = 0;
         for (const item of cart) {
-            if (item.on_sale) total += 399;
+            if (item.on_discount) total += 399;
             else total += item.price;
         }
 
         const updatedCart = await User.findByIdAndUpdate(user_id,{
                 purchased: {
-                    $push: {
-                        cart,
-                        time: Date.now().toLocaleString(),
-                        total
+                    $addToSet: {
+                        cart: { $each: cart }
                     }
                 },
                 cart: [],
