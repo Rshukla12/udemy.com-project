@@ -28,25 +28,25 @@ const Home = () => {
   const [tags, setTags] = useState([]);
   const history = useHistory();
 
-  const searchPost = () => {
-    if (search.trim() || tags) {
-      dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
-      history.push(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
-    } else {
-      history.push('/');
-    }
-  };
+  // const searchPost = () => {
+  //   if (search.trim() || tags) {
+  //     dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
+  //     history.push(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
+  //   } else {
+  //     history.push('/');
+  //   }
+  // };
 
   // 
-  const handleKeyPress = (e) => {
-    if (e.keyCode === 13) {
-      searchPost();
-    }
-  };
+  // const handleKeyPress = (e) => {
+  //   if (e.keyCode === 13) {
+  //     searchPost();
+  //   }
+  // };
 
-  const handleAddChip = (tag) => setTags([...tags, tag]);
+  // const handleAddChip = (tag) => setTags([...tags, tag]);
 
-  const handleDeleteChip = (chipToDelete) => setTags(tags.filter((tag) => tag !== chipToDelete));
+  // const handleDeleteChip = (chipToDelete) => setTags(tags.filter((tag) => tag !== chipToDelete));
 
   return (
     <div>

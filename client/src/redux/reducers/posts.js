@@ -7,9 +7,10 @@ export default (state = { isLoading: true, posts: [] }, action) => {
     case 'END_LOADING':
       return { ...state, isLoading: false };
     case FETCH_ALL:
+      // console.log(1,action.payload)
       return {
         ...state,
-        posts: action.payload,
+        posts: action.payload.data,
         currentPage: action.payload.currentPage,
         numberOfPages: action.payload.numberOfPages,
       };

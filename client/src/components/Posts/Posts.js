@@ -7,12 +7,14 @@ import useStyles from "./styles";
 import Select from "./Select";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 const Posts = ({ setCurrentId }) => {
-  const { posts, isLoading } = useSelector((state) => state.posts);
+  const { posts, isLoading } = useSelector((state) => state.posts)
+  console.log('posts,hi',posts);
   const classes = useStyles();
-
-  // console.log(posts,isLoading)
+  // let post = posts.data;
+  // console.log('post',post);
+  // console.log("hi",post,post.length,isLoading)
   if (!posts.length && !isLoading) return "No posts";
-
+  
   return isLoading ? (
     <CircularProgress />
   ) : (

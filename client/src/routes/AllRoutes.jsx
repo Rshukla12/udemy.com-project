@@ -12,6 +12,7 @@ import Auth from '../../src/components/Auth/Auth';
 
 import PostDetails from '../../src/components/PostDetails/PostDetails';
 import CreatorOrTag from '../../src/components/CreatorOrTag/CreatorOrTag';
+import SearchBar from '../components/Navbar2/SearchBar';
 
 
 const AllRoutes = () => {
@@ -20,8 +21,8 @@ const AllRoutes = () => {
   return (
     <Switch>
       <Route path="/" exact component={HomePage} />
-      <Route path="/search" exact component={Search} />
-      <Route path="/course" exact component={Course} />
+      <Route path="/search" exact component={Home} />
+      <Route path="/course" exact component={Home} />
       <Route path="/cart" exact component={Cart} />
       <Route path="/wishlist" exact component={Wishlist} />
       <Route path="/purchased" exact component={Purchased} />
