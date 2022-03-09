@@ -6,6 +6,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
+import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
@@ -19,11 +20,12 @@ import OutlinedBtn from "../Buttons/OutlinedBtn";
 import ContainedBtn from "../Buttons/ContainedBtn";
 import { Avatar, Button } from "@mui/material";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import decode from "jwt-decode";
 import * as actionType from "../../redux/constants/actionTypes";
 import useStyles from "./styles";
 import Tooltip from "@mui/material/Tooltip";
+import { fetchCart } from "../../redux/actions/cart";
 
 const pages = [
   {
@@ -41,6 +43,7 @@ const pages = [
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = () => {
+  const { cart } = useSelector(state=>state.cart);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
   const location = useLocation();
@@ -69,6 +72,10 @@ const Navbar = () => {
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
 
+  useEffect(() => {
+    dispatch(fetchCart);
+  }, [user]);
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -89,7 +96,7 @@ const Navbar = () => {
           <Stack sx={{ width: "100%", px: 1 }} spacing={1.25} direction="row">
             <Box sx={{ display: { xs: "none", md: "flex" }, maxWidth: "6rem" }}>
               <img
-                style={{ width: "100%" }}
+                style={{ width: "100%", minWidth: "4rem" }}
                 src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
                 alt="logo"
               />
@@ -147,7 +154,7 @@ const Navbar = () => {
               }}
             >
               <img
-                style={{ width: "100%" }}
+                style={{ width: "100%", minWidth: "4rem" }}
                 src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
                 alt="logo"
               />
@@ -221,7 +228,9 @@ const Navbar = () => {
                   },
                 }}
               >
-                <ShoppingCartOutlinedIcon />
+                <Badge badgeContent={cart.length ?? 0} color="secondary">
+                  <ShoppingCartOutlinedIcon />
+                </Badge>
               </IconButton>
             </Stack>
 

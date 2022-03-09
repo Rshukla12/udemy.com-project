@@ -21,10 +21,10 @@ const FeaturedCategories = () => {
                 <Typography variant="h4">
                     Featured topics by category
                 </Typography>
-                <Grid container sx={{pr:10}}>
+                <Grid container sx={{pr:10}} spacing={12}>
                     {
                         categories.map((category, index) => (
-                            <Grid item xs={12} md={6} lg={3} sx={{ cursor: "pointer", pt: 2 }} key={8912*(index+1)}>
+                            <Grid item xs={12} md={6} lg={3} sx={{ cursor: "pointer", mt: 4 }} key={8912*(index+1)}>
                                 <Typography variant="h5">
                                     {category[0]}
                                 </Typography>
@@ -37,7 +37,7 @@ const FeaturedCategories = () => {
                                                         <Link sx={{ color: "violetblue", fontWeight: 600 }}>
                                                             {cat[0]}
                                                         </Link>
-                                                        <Typography variant="body2" sx={{ color: "gray" }}>
+                                                        <Typography variant="body1" sx={{ color: "gray" }}>
                                                             {cat[1]}
                                                         </Typography>
 
@@ -52,7 +52,7 @@ const FeaturedCategories = () => {
                             </Grid>
                         ))
                     }
-                    <OutlinedBtn sx={{mt: 7}} text="Explore more Topics"/>
+                    <OutlinedBtn sx={{mt: 7, ml: 12}} text="Explore more Topics"/>
 
                 </Grid>
             </Box>
