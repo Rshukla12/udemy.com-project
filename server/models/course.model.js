@@ -58,7 +58,13 @@ const courseSchema = new mongoose.Schema({
     }],
     level: {
         type: String
-    } 
+    },
+    ratings:{
+        type:Number
+    },
+    course_total_lectures:{
+        type: Number
+    }
 },{
     versionKey: false,
     timestamps: true

@@ -21,7 +21,7 @@ const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
 
   const userId = user?.result.googleId || user?.result?._id;
-  const hasLikedPost = post.likes.find((like) => like === userId);
+  // const hasLikedPost = post.likes.find((like) => like === userId);
 
   const handleLike = async () => {
     dispatch(likePost(post._id));
@@ -51,16 +51,18 @@ const Post = ({ post, setCurrentId }) => {
 
     history.push(`/posts/${post._id}`);
   };
+  console.log(post.instructors)
 
   return (
     <div>
       <div style={{display: 'flex',borderBottom: '1px solid rgb(220,220,220)',margin:-10}}>
         <div style={{width:"30%",marginTop:22}}>
-        <img src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} style={{width:"250px",height:"150px",borderLeft:"1px solid black",borderRadius:"5px"}} />
+        {/* <img src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} style={{width:"250px",height:"150px",borderLeft:"1px solid black",borderRadius:"5px"}} /> */}
+        <img src={post.img || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} style={{width:"250px",height:"150px",borderLeft:"1px solid black",borderRadius:"5px"}} />
           </div>
-        <div style={{width:"60%",padding:"20px",marginLeft:"40px"}}>
+        <div style={{width:"100%",padding:"20px",marginLeft:"40px"}}>
         <button onClick={openPost} style={{backgroundColor:"white",border:0,margin:-10,padding:-10}}>
-        <p style={{marginLeft:-10,lineHeight:"1px",fontSize:"16px",fontWeight:"bold"}}><span>{post.title}</span><span style={{height:"20px",marginLeft:"100px"}}>₹{post.course_cost}</span></p>
+        <p style={{marginLeft:-10,lineHeight:"1px",fontSize:"16px",fontWeight:"bold"}}><span style={{width:"90%",float:"left",marginLeft:-30}}>{post.course_name}</span><span style={{height:"20px",marginLeft:"100px",width:"10%",float:"right"}}>₹{post.price}</span></p>
         </button>
         {/* <h2>{post.name}</h2> */}
         {/* <h2>{moment(post.createdAt).fromNow()}</h2> */}
@@ -78,12 +80,13 @@ const Post = ({ post, setCurrentId }) => {
           </Button>
         </div>
         )} */}
-          <p style={{marginLeft:-10,marginTop:5,lineHeight:1.5,fontSize:14}}>{post.message.split(' ').splice(0, 20).join(' ')}...</p>
-          <p style={{marginLeft:-10,marginTop:-10,lineHeight:1.5,fontSize:12,fontWeight:"700"}}>{post.name}</p>
+          {/* <p style={{marginLeft:-10,marginTop:5,lineHeight:1.5,fontSize:14}}>{post.message.split(' ').splice(0, 20).join(' ')}...</p> */}
+          <p style={{marginLeft:-10,marginTop:5,lineHeight:1.5,fontSize:14}}>{post.description.map((des)=> des)}...</p>
+          <p style={{marginLeft:-10,marginTop:-10,lineHeight:1.5,fontSize:12,fontWeight:"700"}}>{post.instructors.map((ins)=> ins.creator)}</p>
           <p style={{marginLeft:-10,marginTop:-10,fontSize:12}}><span >Rating:{post.rating}</span></p>
           <div style={{marginLeft:-10,marginTop:-10,fontSize:15}}>
-          <span style={{color:"grey",fontSize:"12px"}}>{post.total_hrs} total hours</span>
-          <span style={{color:"grey",marginLeft:"5px",fontSize:"12px"}}><span style={{fontWeight:"900"}}>.</span>{post.total_lecture} total lectures</span>
+          <span style={{color:"grey",fontSize:"12px"}}>{post.course_time} total hours</span>
+          <span style={{color:"grey",marginLeft:"5px",fontSize:"12px"}}><span style={{fontWeight:"900"}}>.</span>{post.purchased} total lectures</span>
           <span style={{color:"grey",marginLeft:"5px",fontSize:"12px"}}><span style={{fontWeight:"900"}}>.</span>{post.level}</span>
           </div>
         <div style={{marginLeft:-10,marginTop:5,fontSize:15}}>

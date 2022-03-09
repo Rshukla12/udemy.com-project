@@ -43,7 +43,7 @@ const SearchBar = () => {
     const query = useQuery();
     const page = query.get('page') || 1;
     const searchQuery = query.get('searchQuery');
-  
+    
     // const [currentId, setCurrentId] = useState(0);
     const dispatch = useDispatch();
   
@@ -52,28 +52,32 @@ const SearchBar = () => {
     const history = useHistory();
   
     const searchPost = () => {
-      if (search.trim() || tags) {
-        dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
-        history.push(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',') || 'none'}`);
+      if (search.trim()) {
+        dispatch(getPostsBySearch({search}));
+        history.push(`/search?searchQuery=${search || 'none'}`);
       } else {
         history.push('/');
       }
     };
+
+    // &tags=${tags.join(',') || 'none'}
   
     const handleKeyPress = (e) => {
       if (e.keyCode === 13) {
+
         searchPost();
+        console.log(search);
       }
     };
   
-    const handleAddChip = (tag) => setTags([...tags, tag]);
+    // const handleAddChip = (tag) => setTags([...tags, tag]);
   
-    const handleDeleteChip = (chipToDelete) => setTags(tags.filter((tag) => tag !== chipToDelete));
+    // const handleDeleteChip = (chipToDelete) => setTags(tags.filter((tag) => tag !== chipToDelete));
   
-    const handleInputChange = (e) => {
-        setQ( e.target.value );
-        onChange( e.target.value );
-    };
+    // const handleInputChange = (e) => {
+    //     setQ( e.target.value );
+    //     onChange( e.target.value );
+    // };
 
     return (
         <SearchBarWrappper>

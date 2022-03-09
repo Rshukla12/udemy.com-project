@@ -14,7 +14,7 @@ export const fetchPost = (id) => API.get(`/course/${id}`);
 export const fetchPosts = (page) => API.get(`/course?page=${page}`);
 export const fetchPostsByTag = (tag) => API.get(`/course/tag/${tag}`);
 export const fetchPostsByCreator = (name) => API.get(`/course/instructor?name=${name}`);
-export const fetchPostsBySearch = (searchQuery) => API.get(`/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);
+export const fetchPostsBySearch = (searchQuery) => API.get(`/search?searchQuery=${searchQuery.search || 'none'}`);
 export const createPost = (newPost) => API.post('/course', newPost);
 export const fetchWishlist = (id) => API.get('/wishlist');
 export const addToWishlist = (id) => API.patch(`/wishlist/add`, {course_id: id});
@@ -30,3 +30,5 @@ export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updated
 
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
+
+// &tags=${searchQuery.tags} || none`
