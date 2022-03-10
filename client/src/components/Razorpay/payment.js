@@ -15,7 +15,7 @@ function loadScript(src) {
     });
 }
 
-export async function displayRazorpay(onSuc, onFai) {
+export async function displayRazorpay(onSuc, onFai, method) {
     try {
 
         const res = await loadScript(
@@ -59,6 +59,9 @@ export async function displayRazorpay(onSuc, onFai) {
             },
             notes: {
                 address: "Udemy.com",
+            },
+            prefill: {
+                method: method
             },
             theme: {
                 color: "#A435F0",

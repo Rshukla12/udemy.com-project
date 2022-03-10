@@ -149,14 +149,13 @@ const Navbar = () => {
             </Box>
             <Box
               sx={{
-                flexGrow: 0,
                 display: { xs: "flex", md: "none" },
-                paddingRight: "10rem",
-                maxWidth: "6rem",
+                width: "70%",
+                justifyContent: "center"
               }}
             >
               <img
-                style={{ width: "100%", minWidth: "4rem" }}
+                style={{ width: "100%", width: "5rem" }}
                 src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
                 alt="logo"
               />
