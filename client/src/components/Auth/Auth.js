@@ -106,7 +106,9 @@ const SignUp = () => {
                     </div>
                     <div style={{ marginBottom: "10px" }}>
                       <GoogleLogin
-                        clientId="160612781304-b74316niimiumhotk80d6g5u999iu6bp.apps.googleusercontent.com"
+                      clientId="160612781304-b74316niimiumhotk80d6g5u999iu6bp.apps.googleusercontent.com"
+                      // clientId="160612781304-b74316niimiumhotk80d6g5u999iu6bp.apps.googleusercontent.com"
+                        // clientId="160612781304-b74316niimiumhotk80d6g5u999iu6bp.apps.googleusercontent.com"
                         render={(renderProps) => (
                           <Button
                             sx={{

@@ -1,24 +1,70 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { Grid, CircularProgress, Button, Checkbox } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Post from "./Post/Post";
 import useStyles from "./styles";
-import Select from "./Select";
+// import Select from "./Select";
+import Select from '@mui/material/Select';
+import { useHistory,useParams } from "react-router-dom";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+// import { getPostsBySearch } from "../../redux/actions/posts";
+// import Test from './Test'
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 const Posts = ({ setCurrentId }) => {
-  const { posts, isLoading } = useSelector((state) => state.posts)
+  const { posts, isLoading } = useSelector((state) => state.posts);
   console.log('posts,hi',posts);
   const classes = useStyles();
-  // let post = posts.data;
-  // console.log('post',post);
-  // console.log("hi",post,post.length,isLoading)
-  if (!posts.length && !isLoading) return "No posts";
+  const [value,setValue] = React.useState('ratings');
+
+const dispatch = useDispatch();
+const [data,setData] = useState([]);
+
+const handleChange = (e)=>{
+  setValue(e.target.value)
+}
+
+  console.log("i m data",data)
+ useEffect(()=>{
+  setData(posts=>[...posts])
+const sortPosts = type =>{
+  const types = {
+    ratings : "ratings",
+    reviews : "reviews",
+    price : "price",
+    newest : "newest"
+  };
+  const sortProperty = types[type];
+  const sorted = [...posts].sort((a,b)=>a[sortProperty] - b[sortProperty]);
+  setData(sorted);
+  console.log(data);
+}
+sortPosts(value)
+ },[value,posts]);
+  // const history = useHistory();
+
   
+  // let { search } = useParams();
+
+// useEffect(()=>{
+//    if(value.trim()){
+//      dispatch(getPostsBySearch({search,value}));
+//      history.push(`/search?searchQuery=${search}&sort=${value}`)
+//     }
+//     else{
+//       history.push('/');
+//     }
+
+// },[value])
+
+    if (!posts.length && !isLoading) return "No posts";
   return isLoading ? (
     <CircularProgress />
   ) : (
     <>
+    {/* <Test/> */}
       <div
         style={{ display: "flex", marginBottom: "50px", marginLeft: "50px" }}
       >
@@ -44,7 +90,28 @@ const Posts = ({ setCurrentId }) => {
         >
           Filter
         </Button>
-        <Select />
+        {/* <Select posts = {posts}/> */}
+
+        <div>
+      <FormControl sx={{ m: 4,ml:-2, minWidth: 120 }}>
+        <InputLabel id="demo-simple-select-helper-label">Sort By</InputLabel>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          value={value}
+          label="Sort By"
+          onChange={handleChange}
+          className={classes.inputSelect}
+        >
+          <MenuItem value="ratings">Most Relevent</MenuItem>
+          <MenuItem value="reviews">Most Reviewed</MenuItem>
+          <MenuItem value="price">Cost</MenuItem>
+          <MenuItem value="newest">Newest</MenuItem>
+        </Select>
+      </FormControl>
+    </div>
+
+
         <h4 style={{ marginLeft: "-15px", marginTop: "52px" }}>
           Clear filters
         </h4>
@@ -254,7 +321,7 @@ const Posts = ({ setCurrentId }) => {
           </div>
         </Grid>
         <Grid className={classes.grid2}>
-          {posts?.map((post) => (
+          {data?.map((post) => (
             <Grid key={post._id}>
               <Post post={post} setCurrentId={setCurrentId} />
             </Grid>

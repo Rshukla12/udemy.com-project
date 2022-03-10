@@ -42,7 +42,7 @@ const Post = () => {
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
       <div className={classes.card}>
         <div className={classes.section}>
-          <Typography variant="h3" component="h2">{post.title}</Typography>
+          <Typography variant="h3" component="h2">{post.course.name}</Typography>
           <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => (
             <Link style={{ textDecoration: 'none', color: '#3f51b5' }}>
               {` #${tag} `}
