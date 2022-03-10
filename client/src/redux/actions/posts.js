@@ -41,8 +41,8 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
     const { data: { data } } = await api.fetchPostsBySearch(searchQuery);
-    // console.log("hello",searchQuery);
-    // console.log("heelo3",data);
+    console.log("hello",searchQuery);
+    console.log("heelo3",data);
     dispatch({ type: FETCH_BY_SEARCH, payload: { data } });
     dispatch({ type: END_LOADING });
   } catch (error) {

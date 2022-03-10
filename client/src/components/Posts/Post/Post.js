@@ -83,10 +83,10 @@ const Post = ({ post, setCurrentId }) => {
           {/* <p style={{marginLeft:-10,marginTop:5,lineHeight:1.5,fontSize:14}}>{post.message.split(' ').splice(0, 20).join(' ')}...</p> */}
           <p style={{marginLeft:-10,marginTop:5,lineHeight:1.5,fontSize:14}}>{post.description.map((des)=> des)}...</p>
           <p style={{marginLeft:-10,marginTop:-10,lineHeight:1.5,fontSize:12,fontWeight:"700"}}>{post.instructors.map((ins)=> ins.creator)}</p>
-          <p style={{marginLeft:-10,marginTop:-10,fontSize:12}}><span >Rating:{post.rating}</span></p>
+          <p style={{marginLeft:-10,marginTop:-10,fontSize:12}}><span >Rating:{post.ratings}</span></p>
           <div style={{marginLeft:-10,marginTop:-10,fontSize:15}}>
           <span style={{color:"grey",fontSize:"12px"}}>{post.course_time} total hours</span>
-          <span style={{color:"grey",marginLeft:"5px",fontSize:"12px"}}><span style={{fontWeight:"900"}}>.</span>{post.purchased} total lectures</span>
+          <span style={{color:"grey",marginLeft:"5px",fontSize:"12px"}}><span style={{fontWeight:"900"}}>.</span>{post.course_total_lectures} total lectures</span>
           <span style={{color:"grey",marginLeft:"5px",fontSize:"12px"}}><span style={{fontWeight:"900"}}>.</span>{post.level}</span>
           </div>
         <div style={{marginLeft:-10,marginTop:5,fontSize:15}}>

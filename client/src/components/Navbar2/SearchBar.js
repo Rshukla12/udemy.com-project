@@ -5,7 +5,7 @@ import {TextField,Button} from '@mui/material'
 import Posts from '../Posts/Posts';
 import { getPostsBySearch } from '../../redux/actions/posts';
 import { useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation,useParams } from 'react-router-dom';
 
 
 const SearchBarWrappper = styled.div`
@@ -31,11 +31,13 @@ const Input = styled.input`
 `;
 
 
+
 function useQuery() {
     return new URLSearchParams(useLocation().search);
   }
 
 const SearchBar = () => {
+  // let { sort } = useParams();
     const [q, setQ] = useState("");
     const onChange = (title) => {
         console.log(title);

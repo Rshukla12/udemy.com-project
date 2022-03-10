@@ -45,12 +45,15 @@ const getSuggestions = () => {
 
 
 const getCourses = async (req, res) => {
-    const { searchQuery } = req.query;
+    let { searchQuery,sort, per_page, page_no } = req.query;
+    const limit = per_page || 30;
+    const skip = page_no ? page_no > 1 ? ( page_no - 1 ) * per_page : 0 : 0;
+    sort = sort || "views";
     try {
         
         const title = new RegExp(searchQuery, "i");
 
-        const posts = await Course.find({ course_name:title });
+        const posts = await Course.find({ course_name:title }).sort(`${sort}`).skip(skip).limit(Number(limit));
         res.json({ data: posts });
     } catch (error) {    
         res.status(404).json({ message: error.message });
