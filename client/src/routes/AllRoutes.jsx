@@ -4,6 +4,7 @@ import Home from '../../src/components/Home/Home';
 import HomePage from '../../src/pages/Home';
 import Search from '../../src/pages/Search';
 import Wishlist from '../../src/pages/Wishlist';
+import Checkout from '../../src/pages/Checkout';
 import Cart from '../../src/pages/Cart';
 import Purchased from '../../src/pages/Purchased';
 import Course from '../../src/pages/Course';
@@ -23,6 +24,7 @@ const AllRoutes = () => {
       <Route path="/search" exact component={Search} />
       <Route path="/course" exact component={Course} />
       <Route path="/cart" exact component={Cart} />
+      <Route path="/checkout" exact component={Checkout} />
       <Route path="/wishlist" exact component={Wishlist} />
       <Route path="/purchased" exact component={Purchased} />
       <Route path="/category" exact component={Category} />

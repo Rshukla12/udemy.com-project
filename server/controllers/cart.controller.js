@@ -1,4 +1,7 @@
 const User = require("../models/user.model");
+const Razorpay = require("razorpay");
+const crypto = require("crypto");
+let orderNo = 1;
 
 const addToCart = async (req, res) => {
     try {
@@ -107,18 +110,72 @@ const emptyCart = async (req, res) => {
 const order = async (req, res) => {
     try {
         const user_id = req.user._id;
-        const cart = req.user.cart;
+
+        const cart = await User.findById(user_id).populate({
+            path: "cart",
+        })
+        .select({path: "cart"})
+        .lean()
+        .exec();
+
+        const instance = new Razorpay({
+            key_id: process.env.RAZORPAY_KEY_ID,
+            key_secret: process.env.RAZORPAY_SECRET,
+        });
 
         let total = 0;
-        for (const item of cart) {
+        for (const item of cart.cart) {
             if (item.on_discount) total += 399;
             else total += item.price;
         }
 
+        const options = {
+            amount: total * 100, // amount in smallest currency unit
+            currency: "INR",
+            receipt: `receipt_order_${orderNo++}`,
+        };
+
+        const order = await instance.orders.create(options);
+
+        if (!order) return res.status(500).send("Some error occured");
+
+        res.json(order);
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "something went wrong!" });
+    }
+};
+
+const orderSucess = async (req, res) => {
+    try {
+        const user_id = req.user._id;
+        const cart = req.user.cart;
+        // getting the details back from our font-end
+        const {
+            orderCreationId,
+            razorpayPaymentId,
+            razorpayOrderId,
+            razorpaySignature,
+        } = req.body;
+
+        console.log(cart);
+
+        const shasum = crypto.createHmac("sha256", process.env.RAZORPAY_SECRET);
+
+        shasum.update(`${orderCreationId}|${razorpayPaymentId}`);
+
+        const digest = shasum.digest("hex");
+
+        // comaparing our digest with the actual signature
+        if (digest !== razorpaySignature)
+            return res.status(400).json({ msg: "Transaction not legit!" });
+
+        
         const updatedCart = await User.findByIdAndUpdate(user_id,{
-                purchased: {
-                    $addToSet: {
-                        cart: { $each: cart }
+                $addToSet: { 
+                    purchased: {
+                        $each: cart 
                     }
                 },
                 cart: [],
@@ -130,10 +187,16 @@ const order = async (req, res) => {
             .exec();
 
         if (!updatedCart) return res.status(500).json({ msg: "something went wrong!!" });
-        res.status(201).json({cart: updatedCart.cart, total: 0});
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ msg: "something went wrong!" });
+        res.status(201).json({
+            cart: updatedCart.cart, 
+            total: 0,
+            msg: "success",
+            orderId: razorpayOrderId,
+            paymentId: razorpayPaymentId,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send(error);
     }
 };
 
@@ -142,5 +205,6 @@ module.exports = {
   addToCart,
   removeFromCart,
   emptyCart,
-  order
+  order,
+  orderSucess
 };

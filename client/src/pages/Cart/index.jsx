@@ -2,6 +2,7 @@ import { Container, Typography, Box, CircularProgress } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import OutlinedBtn from "../../components/Buttons/ContainedBtn";
 import PopularCarousel from "../../components/Carousel/PopularCarousel";
 import CartCourseCard from "../../components/CartCourseCard/CartCourseCard";
@@ -12,11 +13,12 @@ const Cart = () => {
     const { cart, total, isLoading } = useSelector(state => state.cart);
     const [org, setOrg] = useState(total);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     useEffect(() => {
-        let total = 0;
-        cart?.forEach(c => total += c.price);
-        setOrg(total);
+        let t = 0;
+        cart?.forEach(c => t += c.price);
+        setOrg(t);
     }, [cart])
 
     useEffect(() => {
@@ -27,7 +29,20 @@ const Cart = () => {
         <Container maxWidth="xl">
             {
                 isLoading ? (
-                    <CircularProgress sx={{width: "20rem", height: "20rem", m: "auto"}} />
+                    <Box 
+                        sx={{
+                            width: "100%", 
+                            minWidth: "20rem", 
+                            minHeight: "20rem", 
+                            m: "auto", 
+                            height: "100%", 
+                            display: "flex", 
+                            mt: 5,
+                            justifyContent: "center"
+                        }}
+                    >
+                        <CircularProgress sx={{minHeight: "15rem", minWidth: "15rem" }}/>
+                    </Box>
                 ) : (
                     <>
                         <Stack spacing={10} sx={{ width: "88%", m: "auto", my: 3 }}>
@@ -62,9 +77,17 @@ const Cart = () => {
                                                         </Typography>
                                                     )
                                                 }
-                                                <Typography variant="h6" sx={{ fontWeight: "600" }}>Promotions</Typography>
+                                                <Typography variant="h6" 
+                                                    sx={{ 
+                                                        fontWeight: "600" 
+                                                    }}
+                                                >
+                                                    Promotions
+                                                </Typography>
 
                                                 <OutlinedBtn
+                                                    component={Link} 
+                                                    to={isLogin ? "/checkout" : "/auth"} 
                                                     sx={{
                                                         bgcolor: "#A435E0",
                                                         borderColor: "#A435E0",
@@ -74,7 +97,9 @@ const Cart = () => {
                                                         "&:hover": {
                                                             bgcolor: "#A435F0"
                                                         }
-                                                    }} text="checkout" />
+                                                    }} 
+                                                    text="checkout" 
+                                                />
                                             </Stack>
                                         </Stack>
                                     ) : (
@@ -84,8 +109,16 @@ const Cart = () => {
                                             border: "0.25px solid gray",
                                             py: 3
                                         }}>
-                                            <Box component="img" src="https://s.udemycdn.com/browse_components/flyout/empty-shopping-cart-v2.jpg" sx={{ width: "14rem", heigth: "10rem", m: "auto" }} />
-                                            <Typography variant="body1" sx={{ mt: 3, textAlign: "center" }}>
+                                            <Box 
+                                                component="img" 
+                                                src="https://s.udemycdn.com/browse_components/flyout/empty-shopping-cart-v2.jpg" 
+                                                sx={{ 
+                                                    width: "14rem", heigth: "10rem", m: "auto" 
+                                                }}     
+                                            />
+                                            <Typography variant="body1" 
+                                                sx={{ mt: 3, textAlign: "center" }}
+                                            >
                                                 Your cart is empty. Keep shopping to find a course!
                                             </Typography>
                                             <OutlinedBtn sx={{

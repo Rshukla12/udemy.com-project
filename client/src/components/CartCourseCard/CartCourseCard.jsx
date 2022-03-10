@@ -6,6 +6,7 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "../../redux/actions/cart";
 import { useSelector } from "react-redux";
+import { addToWishlist } from "../../redux/actions/wishlist";
 
 const data = {
     "_id": "6227782b05039a492845be13",
@@ -90,10 +91,16 @@ const CartCourseCard = ({ course = data }) => {
             <Stack direction="column" sx={{textAlign: "right", color: "#A435F0A0"}}>
                 <Typography 
                     onClick={() => dispatch(removeFromCart(id))}
-                    variant="text2" sx={{"&:hover": { color: "#9122E5", cursor: "pointer" }}}>
+                    variant="text2" 
+                    sx={{"&:hover": { color: "#9122E5", cursor: "pointer" }}}
+                >
                     Remove
                 </Typography>
-                <Typography variant="text1" sx={{"&:hover": { color: "#9122E5", cursor: "pointer" }}}>
+                <Typography 
+                    onClick={() => {dispatch(addToWishlist(course)) ,dispatch(removeFromCart(id)) }}
+                    variant="text1" 
+                    sx={{"&:hover": { color: "#9122E5", cursor: "pointer" }}}
+                >
                     Save for Later
                 </Typography>
             </Stack>
