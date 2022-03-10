@@ -75,7 +75,7 @@ const PopMenu = ({ text = "Categories", children }) => {
 
   return (
     <>
-      <NavbarToolTip component={text==="Categories" ? <MenuComponent /> : children } right={text==="Categories" ? true : false } >
+      <NavbarToolTip component={text==="Categories" ? <MenuComponent /> : children } right={text==="Categories" ? true : false }>
         <Button
           sx={{
             color: "black",

@@ -163,7 +163,7 @@ const Navbar = () => {
             </Box>
 
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <PopMenu />
+              <PopMenu/>
             </Box>
 
             <Box sx={{ display: { xs: "none", md: "flex" }, width: "48%" }}>
