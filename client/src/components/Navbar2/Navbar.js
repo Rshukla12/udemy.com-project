@@ -6,6 +6,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
+import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
@@ -19,11 +20,14 @@ import OutlinedBtn from "../Buttons/OutlinedBtn";
 import ContainedBtn from "../Buttons/ContainedBtn";
 import { Avatar, Button } from "@mui/material";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import decode from "jwt-decode";
 import * as actionType from "../../redux/constants/actionTypes";
 import useStyles from "./styles";
 import Tooltip from "@mui/material/Tooltip";
+import { fetchCart } from "../../redux/actions/cart";
+import FavoriteBorderRoundedIcon from "@mui//icons-material/FavoriteBorderRounded";
+import { fetchWishlist } from "../../redux/actions/wishlist";
 
 const pages = [
   {
@@ -41,6 +45,8 @@ const pages = [
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = () => {
+  const { cart } = useSelector(state=>state.cart);
+  const { wishlist } = useSelector(state=>state.wishlist);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
   const location = useLocation();
@@ -49,9 +55,7 @@ const Navbar = () => {
 
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
-
     history.push("/auth");
-
     setUser(null);
   };
 
@@ -68,6 +72,11 @@ const Navbar = () => {
 
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
+
+  useEffect(() => {
+    dispatch(fetchCart);
+    dispatch(fetchWishlist);
+  }, [user]);
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -89,7 +98,7 @@ const Navbar = () => {
           <Stack sx={{ width: "100%", px: 1 }} spacing={1.25} direction="row">
             <Box sx={{ display: { xs: "none", md: "flex" }, maxWidth: "6rem" }}>
               <img
-                style={{ width: "100%" }}
+                style={{ width: "100%", minWidth: "4rem" }}
                 src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
                 alt="logo"
               />
@@ -147,7 +156,7 @@ const Navbar = () => {
               }}
             >
               <img
-                style={{ width: "100%" }}
+                style={{ width: "100%", minWidth: "4rem" }}
                 src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
                 alt="logo"
               />
@@ -212,6 +221,8 @@ const Navbar = () => {
                 <SearchIcon />
               </IconButton>
               <IconButton
+                component={Link}
+                to="/cart"
                 disableRipple
                 sx={{
                   color: "black",
@@ -221,7 +232,9 @@ const Navbar = () => {
                   },
                 }}
               >
-                <ShoppingCartOutlinedIcon />
+                <Badge badgeContent={cart.length ?? 0} color="secondary">
+                  <ShoppingCartOutlinedIcon />
+                </Badge>
               </IconButton>
             </Stack>
 
@@ -231,10 +244,27 @@ const Navbar = () => {
               sx={{ pt: 1.5, display: { xs: "none", md: "flex" } }}
             >
               {user?.result ? (
-                <div className={classes.profile}>
+                <>
+                  <IconButton
+                    component={Link}
+                    to="/wishlist"
+                    disableRipple
+                    sx={{
+                      color: "black",
+                      borderRadius: "0px",
+                      "&:hover": {
+                        color: "slateblue",
+                      },
+                    }}
+                  >
+                    <Badge badgeContent={wishlist.length ?? 0} color="secondary">
+                      <FavoriteBorderRoundedIcon sx={{mb: 1, width: "2rem"}}/>
+                    </Badge>
+                  </IconButton>
                   <Tooltip title={user?.result.name} placement="bottom">
                     <Avatar
                       className={classes.purple}
+                      sx={{bgcolor: "slateblue"}}
                       alt={user?.result.name}
                       src={user?.result.imageUrl}
                     >
@@ -246,14 +276,15 @@ const Navbar = () => {
                     className={classes.logout}
                     color="secondary"
                     onClick={logout}
+                    sx={{height: "40px", bgcolor: "slateblue"}}
                   >
                     Logout
                   </Button>
-                </div>
+                  </>
               ) : (
                 <>
                   <OutlinedBtn text="Sign in" component={Link} to="/auth" />
-                  <ContainedBtn text="Sign up" />
+                  <ContainedBtn text="Sign up" component={Link} to="/auth"/>
                 </>
               )}
               <IconButton

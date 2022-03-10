@@ -13,7 +13,7 @@ const Carousel = ({ children, len }) => {
   const [sliderRef, setSliderRef] = useState(null);
   const [active, setActive] = useState(0);
   const sliderSettings = {
-    slidesToShow: 5,
+    slidesToShow: 5 > len ? len : 5,
     lazyLoad: true,
     slidesToScroll: 3,
     infinite: false,
@@ -53,7 +53,7 @@ const Carousel = ({ children, len }) => {
     ],
     beforeChange: (current, next) => setActive(next),
   };
-
+  console.log(len);
 
   return (
     <Container maxWidth="xl" sx={{p: 0, m: 0}}>
@@ -70,7 +70,7 @@ const Carousel = ({ children, len }) => {
             {children}
           </Slider>
           {
-            active < len ? (
+            active < len - 1 ? (
               <IconButton className={styles.rightBtn} onClick={sliderRef?.slickNext}>
                 <ArrowForwardIosOutlinedIcon />
               </IconButton>

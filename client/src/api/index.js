@@ -22,12 +22,15 @@ export const removeFromWishlist = (id) => API.patch(`/wishlist/remove`, {course_
 export const emptyWishlist = (id) => API.delete(`/wishlist`);
 export const fetchCart = (id) => API.get('/cart');
 export const addToCart = (id) => API.patch(`/cart/add`, {course_id: id});
+export const addMulToCart = (ids) => API.patch(`/cart/add`, {courses: ids});
+export const addMulToWishlist = (ids) => API.patch(`/wishlist/add`, {courses: ids});
 export const removeFromCart = (id) => API.patch(`/cart/remove`, {course_id: id});
+export const orderCart = (id) => API.post("http://localhost:5000/cart/order");
 export const emptyCart = (id) => API.delete(`/cart`);
+export const orderSuccess = (data) => API.post("http://localhost:5000/cart/success", data)
 // export const comment = (value, id) => API.post(`/posts/${id}/commentPost`, { value });
 export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updatedPost);
 // export const deletePost = (id) => API.delete(`/posts/${id}`);
-
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
 

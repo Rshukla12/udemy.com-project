@@ -58,13 +58,16 @@ const CategorySelector = () => {
 
   useEffect(async () => {
     setIsLoading(true);
-    const {
-      data
-    } = await api.fetchPostsByTag( categoryList[active].title );
-    console.log(data)
-    setPost(data);
+    try {
+      const {
+        data
+      } = await api.fetchPostsByTag( categoryList[active].title );
+      console.log(data)
+      setPost(data);  
+    } catch ( err ) {
+      console.log(err);
+    }
     setIsLoading(false);
-    console.log(data)
   }, [active]);
 
   return (

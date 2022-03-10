@@ -7,8 +7,13 @@ import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import FavoriteBorderRoundedIcon from "@mui//icons-material/FavoriteBorderRounded";
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import Zoom from '@mui/material/Zoom';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useDispatch, useSelector } from 'react-redux';
+import { CircularProgress } from '@mui/material';
+import { addToCart, removeFromCart } from '../../redux/actions/cart';
+import { addToWishlist, removeFromWishlist } from '../../redux/actions/wishlist';
 
 const HtmlTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -29,11 +34,36 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 }));
 
 
-const CourseToolTip = ({ title, tagline, details=[], id, children }) => {
+const CourseToolTip = ({ title, tagline, details=[], course, children }) => {
     const matches = useMediaQuery('(min-width:900px)');
     if ( tagline.length >= 100 ) tagline = tagline.slice(0, 97) + "..."
     if ( title.length >= 48 ) title = title.slice(0, 44) + "..."
+    const [state, setState] = React.useState(false);
+    const [wish, setWish] = React.useState(false);
     
+    const { isLoading, cart } = useSelector(state=>state.cart);
+    const { isLoadingWishlist, wishlist } = useSelector(state=>state.wishlist);
+    
+    const dispatch = useDispatch();
+    
+    React.useEffect(()=> {
+        let a = false;
+        for ( const c of cart ){
+            if ( course._id === c._id ) a = true;
+        }
+        if ( a ) setState(true);
+        else setState(false);
+    }, [cart]);
+
+    React.useEffect(()=> {
+        let b = false;
+        for ( const c of wishlist ){
+            if ( course._id === c._id ) b = true;
+        }
+        if ( b ) setWish(true);
+        else setWish(false);
+    }, [wishlist]);
+
     return (
         <div>
             <HtmlTooltip
@@ -58,37 +88,50 @@ const CourseToolTip = ({ title, tagline, details=[], id, children }) => {
                             }
                         </Stack>
                         <Stack direction="row" spacing={1} >
-                            <Button
-                                variant="contained"
-                                disableRipple
-                                sx={{
-                                    textTransform: "none",
-                                    bgcolor: "#A435F0",
-                                    color: "white",
-                                    borderRadius: "0px",
-                                    px: 2,
-                                    height: "40px",
-                                    minWidth: "200px",
-                                    "&:hover": {
-                                        color: "white",
-                                        bgcolor: "blueviolet",
-                                    },
-                                }}
-                            >
-                                Add to Cart
-                            </Button>
-                            <IconButton
-                                variant="outlined"
-                                sx={{
-                                    mt:2,
-                                    color: "black",
-                                    borderRadius: "50%",
-                                    height: "40px",
-                                    border: "1px solid #444",
-                                }}
-                            >
-                                <FavoriteBorderRoundedIcon />                            
-                            </IconButton>
+                            {   isLoading ? <CircularProgress/> : (
+                                    <Button
+                                        variant="contained"
+                                        onClick={() => state ? dispatch(removeFromCart(course._id)) : dispatch(addToCart(course))}
+                                        disableRipple
+                                        sx={{
+                                            textTransform: "none",
+                                            bgcolor: "#A435F0",
+                                            color: "white",
+                                            borderRadius: "0px",
+                                            px: 2,
+                                            height: "40px",
+                                            minWidth: "200px",
+                                            "&:hover": {
+                                                color: "white",
+                                                bgcolor: "blueviolet",
+                                            },
+                                        }}
+                                    >
+                                        { state ? "Remove From Cart" : "Add to Cart"}
+                                    </Button>
+                                )
+                            }
+                            {   isLoadingWishlist ? <CircularProgress /> : 
+                                <IconButton
+                                    variant="outlined"
+                                    sx={{
+                                        mt:2,
+                                        color: "black",
+                                        borderRadius: "50%",
+                                        height: "40px",
+                                        border: "1px solid #444",
+                                    }}
+                                    onClick={ () => wish ? dispatch(removeFromWishlist(course._id)) : dispatch(addToWishlist(course)) }
+                                >
+                                    { 
+                                        wish ?  (
+                                            <FavoriteRoundedIcon />
+                                        ) : (
+                                            <FavoriteBorderRoundedIcon />
+                                        )
+                                    }
+                                </IconButton>
+                            }
                         </Stack>
                     </Stack>
                 }
