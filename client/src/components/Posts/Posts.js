@@ -1,12 +1,12 @@
 import React,{useState,useEffect} from "react";
 import { Grid, CircularProgress, Button, Checkbox } from "@mui/material";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Post from "./Post/Post";
 import useStyles from "./styles";
 // import Select from "./Select";
 import Select from '@mui/material/Select';
-import { useHistory,useParams } from "react-router-dom";
+// import { useHistory,useParams } from "react-router-dom";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -15,11 +15,11 @@ import FormControl from '@mui/material/FormControl';
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 const Posts = ({ setCurrentId }) => {
   const { posts, isLoading } = useSelector((state) => state.posts);
-  console.log('posts,hi',posts);
+  console.log('i am data',posts);
   const classes = useStyles();
   const [value,setValue] = React.useState('ratings');
 
-const dispatch = useDispatch();
+// const dispatch = useDispatch();
 const [data,setData] = useState([]);
 
 const handleChange = (e)=>{
@@ -43,21 +43,6 @@ const sortPosts = type =>{
 }
 sortPosts(value)
  },[value,posts]);
-  // const history = useHistory();
-
-  
-  // let { search } = useParams();
-
-// useEffect(()=>{
-//    if(value.trim()){
-//      dispatch(getPostsBySearch({search,value}));
-//      history.push(`/search?searchQuery=${search}&sort=${value}`)
-//     }
-//     else{
-//       history.push('/');
-//     }
-
-// },[value])
 
     if (!posts.length && !isLoading) return "No posts";
   return isLoading ? (

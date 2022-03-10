@@ -14,19 +14,25 @@ const Post = () => {
   const classes = useStyles();
   const { id } = useParams();
 
+  console.log(post,"...");
+  console.log(posts,"...");
   useEffect(() => {
     dispatch(getPost(id));
   }, [id]);
 
   useEffect(() => {
     if (post) {
-      dispatch(getPostsBySearch({ search: 'none', tags: post?.tags.join(',') }));
+      dispatch(getPostsBySearch({ search: 'java'}));
     }
   }, [post]);
 
   if (!post) return null;
 
-  const openPost = (_id) => history.push(`/posts/${_id}`);
+  // const openPost = (_id) => history.push(`/posts/${_id}`);
+  
+  // const recommendedPosts = posts.filter(({ id }) => id !== posts._id);
+  // console.log(recommendedPosts,"recommendedPosts")
+  console.log(posts,"recommendedPosts")
 
   if (isLoading) {
     return (
@@ -36,50 +42,34 @@ const Post = () => {
     );
   }
 
-  const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
-           
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
       <div className={classes.card}>
         <div className={classes.section}>
-          <Typography variant="h3" component="h2">{post.course.name}</Typography>
-          <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => (
-            <Link style={{ textDecoration: 'none', color: '#3f51b5' }}>
-              {` #${tag} `}
-              </Link>
-
-               
-            
-          ))}
+          <Typography variant="h3" component="h2">{post.course_name}</Typography>
+          <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => (` #${tag} `))}
           </Typography>
-          <Typography gutterBottom variant="body1" component="p">{post.message}</Typography>
+          <Typography gutterBottom variant="body1" component="p">{post.description.map((description) =>description)}</Typography>
           <Typography variant="h6">
-            Created by:
-            <Link style={{ textDecoration: 'none', color: '#3f51b5' }}>
-              {` ${post.name}`}
-            </Link>
+            Created by:{post.instructors.map((ins)=> ins.creator)}
           </Typography>
           <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
-          {/* <Divider style={{ margin: '20px 0' }} />
-          <Divider style={{ margin: '20px 0' }} />
-          <Divider style={{ margin: '20px 0' }} /> */}
         </div>
         <div className={classes.imageSection}>
-          <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
+          <img className={classes.media} src={post.img || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
         </div>
       </div>
-      {!!recommendedPosts.length && (
+      {!!posts.length && (
         <div className={classes.section}>
           <Typography gutterBottom variant="h5">You might also like:</Typography>
           <Divider />
           <div className={classes.recommendedPosts}>
-            {recommendedPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
+            {posts.map(({course_name, tagline, img, _id }) => (
               <div style={{ margin: '20px', cursor: 'pointer' }} onClick={() => openPost(_id)} key={_id}>
-                <Typography gutterBottom variant="h6">{title}</Typography>
-                <Typography gutterBottom variant="subtitle2">{name}</Typography>
-                <Typography gutterBottom variant="subtitle2">{message}</Typography>
-                <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
-                <img src={selectedFile} width="200px" />
+                <Typography gutterBottom variant="h6">{course_name}</Typography>
+                <Typography gutterBottom variant="subtitle2">{tagline}</Typography>
+                {/* <Typography gutterBottom variant="subtitle2">{message}</Typography> */}
+                <img src={img} width="200px" />
               </div>
             ))}
           </div>
