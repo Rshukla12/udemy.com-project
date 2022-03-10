@@ -257,8 +257,8 @@ const Navbar = () => {
                       },
                     }}
                   >
-                    <Badge badgeContent={wishlist.length ?? 0} color="secondary">
-                      <FavoriteBorderRoundedIcon sx={{mb: 1, width: "2rem"}}/>
+                    <Badge sx={{mb: 1.5, height: "1.5rem"}} badgeContent={wishlist.length ?? 0} color="secondary">
+                      <FavoriteBorderRoundedIcon/>
                     </Badge>
                   </IconButton>
                   <Tooltip title={user?.result.name} placement="bottom">
