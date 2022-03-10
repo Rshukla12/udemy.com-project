@@ -4,16 +4,18 @@ const User = require("../models/user.model");
 
 const getCourses = async (req, res) => {
     try {
-        let { sort, per_page, page_no } = req.query;
+        let { sort, per_page, page } = req.query;
         const limit = per_page || 6;
-        const skip = page_no ? page_no > 1 ? ( page_no - 1 ) * per_page : 0 : 0;
+        // const skip = page ? page > 1 ? ( page - 1 ) * per_page : 0 : 0;
+        const startIndex = (Number(page) - 1) * limit; // get the starting index of every page
+
         sort = sort || "asc";
         
         const total = await Course.countDocuments({});
         
         let result = await Course.find({})
             .sort({ purchased: sort })
-            .skip(skip)
+            .skip(startIndex)
             .limit(Number(limit))
             .populate({
                 path: "instructors",
@@ -23,7 +25,7 @@ const getCourses = async (req, res) => {
             .exec();
         if (!result || !result.length)
             return res.status(404).json({ msg: "courses doesn't exist!" });
-        res.status(200).json({data: result, currentPage: Number(page_no) || 1, numberOfPages: Math.ceil(total / limit)});
+        res.status(200).json({data: result, currentPage: Number(page) || 1, numberOfPages: Math.ceil(total / limit)});
     } catch (err) {
         console.log(err);
         res.status(500).json({ msg: "something went wrong!" });
