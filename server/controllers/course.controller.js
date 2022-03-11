@@ -163,11 +163,33 @@ const getCourseByInstructor = async (req, res) => {
     }
 };
 
+const getMyCourses = async ( req, res ) =>  {
+    try {
+        const user_id = req.user._id;
+        console.log(user_id);
+        const courses = await Instructor.findOne({user: user_id}).populate({
+            path: "courses",
+        })
+        .select({path: "courses"})
+        .lean()
+        .exec();
+    
+        if ( !courses )
+            return res.status(404).json({ msg: "courses is empty" });
+        
+        res.status(200).json({ courses: courses.courses, items: courses.length });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "something went wrong!" });
+    };
+}   
+    
 
 module.exports = {
   getCourses,
   getCourseByTag,
   createCourse,
   getCourseById,
-  getCourseByInstructor
+  getCourseByInstructor,
+  getMyCourses
 };

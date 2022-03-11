@@ -11,6 +11,8 @@ router.get("/tag/:tagName", courseController.getCourseByTag);
 
 router.get("/instructor/:instructor", courseController.getCourseByInstructor);
 
+router.get("/my", auth, courseController.getMyCourses);
+
 router.get("/:id", courseController.getCourseById);
 
 router.post("/", auth, courseController.createCourse);
