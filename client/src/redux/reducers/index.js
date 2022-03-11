@@ -4,5 +4,5 @@ import posts from './posts';
 import auth from './auth';
 import cart from "./cart";
 import wishlist from "./wishlist";
-
-export const reducers = combineReducers({ posts, auth, cart, wishlist });
+import instructorAuth from "./instructorAuth";
+export const reducers = combineReducers({ posts, auth, cart, wishlist,instructorAuth });

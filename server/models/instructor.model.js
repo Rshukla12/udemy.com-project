@@ -10,6 +10,10 @@ const instructorSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    isInstructor:{
+        type:Boolean,
+        default: true
+    },
     info: {
         type: String,
         required: true
