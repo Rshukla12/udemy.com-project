@@ -34,4 +34,7 @@ export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updated
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
 
+
+export const fetchVideo = (id) => API.get(`/video/${id}`);
 // &tags=${searchQuery.tags} || none`
+export const fetchPurchased = () => API.get('/cart/purchased');

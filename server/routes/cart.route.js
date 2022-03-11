@@ -17,4 +17,6 @@ router.post("/order", auth, cartController.order);
 
 router.post("/success", auth, cartController.orderSucess);
 
+router.get("/purchased", auth, cartController.getPurchased);
+
 module.exports = router;
