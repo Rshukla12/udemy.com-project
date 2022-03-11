@@ -1,33 +1,72 @@
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
-const Instructor = require("../models/instructor.model");
+const jwt = require("jsonwebtoken");
 
-const deliverVideo = (req, res) => {
+const Instructor = require("../models/instructor.model");
+const Course = require("../models/course.model");
+
+// secure video access
+// take user id and video/course path and generate token
+// then send the token and use that token to get id and video and get the video by using that id
+
+const generateUrl = async ( req, res ) => {
     try {
-        // const purchased = req.user.purchased;
-    
-        const range = req.headers.range;
+        const purchased = req.user.purchased;
         const id = req.params.id;
 
-        // let isUserAuth = false;
-        // for ( const courses of purchased ){
-        //     if ( courses._id === id ) isUserAuth = true;
-        // } 
+        const isValidCourse = await Course.findById(id);
+        
+        if ( !isValidCourse ) 
+            return res.status(404).json({msg: "Invalid course id, course not found!"})
 
-        // if ( !isUserAuth ) {
-        //     return res.status(403).json({msg: "You are not authorized to view this, please buy the course!"})
-        // }
+        let isUserAuth = false;
+        for ( const courses of purchased ){
+            if ( courses._id == id ) isUserAuth = true;
+        }
+
+        if ( !isUserAuth ) {
+            return res.status(403).json({msg: "You are not authorized to view this, please buy the course!"})
+        }
     
         const fileName = `${id}.mp4`;
         const videoPath = path.join(__dirname, "../videos", fileName);
         if ( ! fs.existsSync(videoPath) ) {
             return res.status(404).json({ msg: "File does not exists!" })
         }
+
+        const token = jwt.sign({
+            videoPath: videoPath,
+            userId: req.user._id
+        }, process.env.SECRET, {
+            expiresIn: "1h"
+        });
+
+        res.status(200).json(token);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({msg: "something went wrong!"});
+    }
+}
+
+const deliverVideo = (req, res) => {
+    try {
+        
+        const range = req.headers.range;
+        const token = req.params.id;
         
         if (!range) {
             return res.status(400).json({msg: "Requires Range header"});
         }
+        
+        let decodedData;
+        try {
+            decodedData = jwt.verify(token, process.env.SECRET);    
+        } catch (err) {
+            return res.status(403).json({ msg: "Invalid or expired token!" });
+        }
+
+        const { videoPath } = decodedData;
 
         const videoSize = fs.statSync(videoPath).size;
             
@@ -46,9 +85,9 @@ const deliverVideo = (req, res) => {
         res.writeHead(206, headers);
         
         const videoStream = fs.createReadStream(videoPath, { start, end });
-        console.log(videoStream);
         videoStream.pipe(res);
     } catch ( err ) {
+        console.log(err);
         res.status(500).json({msg: "something went wrong!"});
     }
 };
@@ -69,5 +108,6 @@ const uploadVideo = async ( req, res ) => {
 
 module.exports = {
     deliverVideo,
-    uploadVideo
+    uploadVideo,
+    generateUrl
 };

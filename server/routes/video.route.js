@@ -8,8 +8,9 @@ const videoUpload = require("../config/videoUpload.config");
 
 const videoController = require("../controllers/video.controller");
 
+router.get("/watch/:id", videoController.deliverVideo);
 
-router.get("/:id", auth, videoController.deliverVideo);
+router.get("/:id", auth, videoController.generateUrl);
 
 router.post("/:id", auth, isCourseOwner, videoUpload.single('file'), videoController.uploadVideo);
 
