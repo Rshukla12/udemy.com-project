@@ -28,6 +28,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { fetchCart } from "../../redux/actions/cart";
 import FavoriteBorderRoundedIcon from "@mui//icons-material/FavoriteBorderRounded";
 import { fetchWishlist } from "../../redux/actions/wishlist";
+import { fetchPurchased } from "../../redux/actions/purchase";
 
 const pages = [
   {
@@ -45,6 +46,7 @@ const pages = [
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = () => {
+  const { isLogin } = useSelector(state=>state.auth);
   const { cart } = useSelector(state=>state.cart);
   const { wishlist } = useSelector(state=>state.wishlist);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -76,7 +78,8 @@ const Navbar = () => {
   useEffect(() => {
     dispatch(fetchCart);
     dispatch(fetchWishlist);
-  }, [user]);
+    dispatch(fetchPurchased());
+  }, [isLogin]);
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 

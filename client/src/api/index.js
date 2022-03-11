@@ -37,3 +37,4 @@ export const signUp = (formData) => API.post('/user/signup', formData);
 
 export const fetchVideo = (id) => API.get(`/video/${id}`);
 // &tags=${searchQuery.tags} || none`
+export const fetchPurchased = () => API.get('/cart/purchased');
