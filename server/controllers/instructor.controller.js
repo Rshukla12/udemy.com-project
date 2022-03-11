@@ -64,11 +64,11 @@ const signUpByInstructor = async (req, res) => {
             if ( isAlreadyInstructor ) return res.status(400).json({msg: "Already instructor!"});
         }
 
-        const result = await Instructor.create({info,isInstructor, creator: user.name, courses: [], user: user});
+        const instructor = await Instructor.create({info,isInstructor, creator: user.name, courses: [], user: user});
         
         const token = jwt.sign( { id: user._id }, secret, { expiresIn: "1h" });
         
-        res.status(201).json({result,token});
+        res.status(201).json({instructor,token});
     } catch (err) {
         console.log(err);
         res.status(500).json({ msg: "something went wrong!" });
@@ -79,10 +79,10 @@ const signUpByInstructor = async (req, res) => {
 
 
 const signInByInstructor = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password,isInstructor } = req.body;
 
     try {
-        const oldUser = await User.findOne({ email });
+        let oldUser = await User.findOne({ email });
 
         if (!oldUser)
             return res.status(404).json({ message: "User doesn't exist" });
@@ -93,8 +93,8 @@ const signInByInstructor = async (req, res) => {
             return res.status(400).json({ message: "Invalid credentials" });
 
         const token = jwt.sign({ id: oldUser._id }, secret, { expiresIn: "1h" });
-
-        res.status(200).json({ token });
+        const instructor = oldUser;
+        res.status(200).json({ instructor,token });
     } catch (err) {
         res.status(500).json({ message: "Something went wrong" });
     }

@@ -171,7 +171,7 @@ const Navbar = () => {
             </Box>
 
 {
-  user?.result?.isInstructor ? (<Container sx={{pt:2}}><Link style={{textDecoration: "none",color: "black"}} to='/instructor/course'>Instructor</Link></Container>):
+  user?.instructor? (<Container sx={{pt:2}}><Link style={{textDecoration: "none",color: "black"}} to='/instructor/course'>Instructor</Link></Container>):
   (<Box sx={{ flexGrow: 1, display: { xs: "none", lg: "flex" } }}>
   {pages.map((page) => (
     <PopMenu key={page.text} text={page.text}>
@@ -252,7 +252,7 @@ const Navbar = () => {
               spacing={1}
               sx={{ pt: 1.5, display: { xs: "none", md: "flex" } }}
             >
-              {user?.result ? (
+              {user?.instructor?.result ? (
                 <>
                   <IconButton
                     component={Link}
