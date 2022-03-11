@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, CircularProgress, Button, Checkbox, Box } from "@mui/material";
+import { Grid, CircularProgress, Container, Button, Checkbox, Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Post from "./Post/Post";
@@ -63,7 +63,7 @@ const Posts = ({ setCurrentId }) => {
       <CircularProgress sx={{ minHeight: "15rem", minWidth: "15rem" }} />
     </Box>
   ) : (
-    <>
+    <Container maxWidth="xl">
       {/* <Test/> */}
       <div style={{ display: "flex", marginBottom: "50px" }}>
         <Button
@@ -316,7 +316,7 @@ const Posts = ({ setCurrentId }) => {
           ))}
         </Grid>
       </Grid>
-    </>
+    </Container>
   );
 };
 

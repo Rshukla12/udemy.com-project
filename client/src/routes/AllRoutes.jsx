@@ -30,7 +30,7 @@ const AllRoutes = () => {
       {/* <Route path="/posts/search" exact component={Home} /> */}
       <Route path="/course/:id" exact component={PostDetails} />
       {/* <Route path={['/creators/:name', '/tags/:name']} component={CreatorOrTag} /> */}
-      <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/course" />)} />
+      <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/" />)} />
       <Route path="/instructor/course" exact component={Form} />
     </Switch>
   )

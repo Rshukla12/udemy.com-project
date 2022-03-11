@@ -102,14 +102,13 @@ const Navbar = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Stack sx={{ width: "100%", px: 1 }} spacing={1.25} direction="row">
-            <Box 
-              onClick={()=>history.push("/")} 
+            <Box onClick={()=>history.push("/")} 
               sx={{ 
-                display: { xs: "none", md: "flex" },
-                maxWidth: "6rem",
-                cursor: "pointer" 
-              }}
-            >
+                  display: { xs: "none", md: "flex" }, 
+                  maxWidth: "6rem",
+                  cursor: "pointer",
+                
+              }}>
               <img
                 style={{ width: "100%", minWidth: "4rem" }}
                 src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
@@ -177,54 +176,45 @@ const Navbar = () => {
             </Box>
 
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <PopMenu/>
+              <PopMenu />
             </Box>
 
             <Box sx={{ display: { xs: "none", md: "flex" }, width: "48%" }}>
               <SearchBar />
             </Box>
 
-{
-  user?.result? (<Container sx={{pt:2}}><Link style={{textDecoration: "none",color: "black"}} to='/instructor/course'>Instructor</Link></Container>):
-  (<Box sx={{ flexGrow: 1, display: { xs: "none", lg: "flex" } }}>
-  {pages.map((page) => (
-    <PopMenu key={page.text} text={page.text}>
-      <Container
-        sx={{
-          pb: 2,
-        }}
-      >
-        <Typography
-          variant="body1"
-          sx={{
-            textAlign: "center",
-            fontWeight: 600,
-            py: 1,
-          }}
-        >
-          {page.body}
-        </Typography>
-        <ContainedBtn  component={Link}
-         to="/instructor"
-        text={page.btn}
-          // {{page.btn} ==='Learn More' ? {page.btn} component={Link} to={'/auth'} : {page.btn}}
-          sx={{
-            px: 3,
-            py: 2.5,
-            height: "30px",
-            minWidth: "stretch",
-          }}
-        />
-      </Container>
-    </PopMenu>
-  ))}
-</Box>)
-}
-          
-          
-
-
-
+            <Box sx={{ flexGrow: 1, display: { xs: "none", lg: "flex" } }}>
+              {pages.map((page) => (
+                <PopMenu key={page.text} text={page.text}>
+                  <Container
+                    sx={{
+                      pb: 2,
+                    }}
+                  >
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        textAlign: "center",
+                        fontWeight: 600,
+                        py: 1,
+                      }}
+                    >
+                      {page.body}
+                    </Typography>
+                    <ContainedBtn
+                    text={page.btn}
+                      // {{page.btn} ==='Learn More' ? {page.btn} component={Link} to={'/auth'} : {page.btn}}
+                      sx={{
+                        px: 3,
+                        py: 2.5,
+                        height: "30px",
+                        minWidth: "stretch",
+                      }}
+                    />
+                  </Container>
+                </PopMenu>
+              ))}
+            </Box>
 
             <Stack direction="row" spacing={2}>
               <IconButton
@@ -284,18 +274,16 @@ const Navbar = () => {
                       <FavoriteBorderRoundedIcon/>
                     </Badge>
                   </IconButton>
-                  <Tooltip title={user?.result?.user?.name} placement="bottom">
+                  <Tooltip title={user?.result.name} placement="bottom">
                     <Avatar
                       className={classes.purple}
-                      sx={{
-                        bgcolor: "slateblue",
-                        cursor: "pointer"
-                      }}
+                      sx={{bgcolor: "slateblue"}}
                       alt={user?.result.name}
                       src={user?.result.imageUrl}
+                      sx={{cursor: "pointer"}}
                       onClick={()=>history.push("/purchased")}
                     >
-                      {user?.result?.user?.name.charAt(0)}
+                      {user?.result.name.charAt(0)}
                     </Avatar>
                   </Tooltip>
                   <Button

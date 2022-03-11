@@ -64,7 +64,7 @@ const Footer = ({isAuth}) => {
             <Grid container sx={{ py: 2.5, px: 4, pr:1, pt: 4, backgroundColor: "#1C1D1F", color: "#d3d3d3" }}>
                 {
                     links.map(linkGrp => (
-                        <Grid key={linkGrp[0] + linkGrp[1]} item xs={12} md={6} lg={2}>
+                        <Grid key={linkGrp[0] + linkGrp[1]} item xs={12} md={6} lg={3}>
                             <Stack sx={{ textAlign: "left" }} spacing={1} >
                                 {
                                     linkGrp.map(link => (
@@ -78,7 +78,7 @@ const Footer = ({isAuth}) => {
                         </Grid>
                     ))
                 }
-                <Grid item xs={0} md={0} xl={4}>
+                <Grid item xs={0} md={0} xl={1}>
                 </Grid>
                 <Grid item xs={12} md={6} xl={2}>
                     <Button
