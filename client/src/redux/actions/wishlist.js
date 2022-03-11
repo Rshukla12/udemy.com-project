@@ -9,8 +9,7 @@ export const fetchWishlist = () => async (dispatch) => {
         if (localStorage.getItem('profile')) {
             result = await api.fetchWishlist();
             dispatch({type: FETCH_WISHLIST, payload: {
-                wishlist: result.data.wishlist,
-                total: result.data.total
+                wishlist: result.data.wishlist
             }});
         }
     } catch (error) {

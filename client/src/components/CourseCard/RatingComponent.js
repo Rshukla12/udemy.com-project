@@ -4,6 +4,7 @@ import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 
 const RatingComponent = ({rating, noOfRatings}) => {
+  if ( !noOfRatings ) return <></>;
   return (
     <Stack
       direction="row"

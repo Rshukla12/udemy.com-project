@@ -1,7 +1,9 @@
 import * as React from 'react';
 import Container from '@mui/material/Container';
-import Stack from '@mui/material/Stack';
+import RadioGroup from '@mui/material/RadioGroup';
+import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
@@ -9,7 +11,6 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import styled from '@emotion/styled';
 import { useDispatch, useSelector } from 'react-redux';
 import OutlinedBtn from '../../components/Buttons/OutlinedBtn';
 import { displayRazorpay } from '../../components/Razorpay/payment';
@@ -17,7 +18,9 @@ import { emptyCart, fetchCart } from '../../redux/actions/cart';
 import { CircularProgress } from '@mui/material';
 import Alert from "@mui/material/Alert";
 import Slide from "@mui/material/Slide";
-import Snackbar from "@mui/material/Snackbar"; 
+import Snackbar from "@mui/material/Snackbar";
+import Radio from "@mui/material/Radio";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import { useHistory } from "react-router-dom";
 
 export function TransitionDown(props) {
@@ -28,61 +31,44 @@ const addCommas = (num) => {
     return Number(num.toFixed(2)).toLocaleString('en');
 }
 
-const CustomTextField = styled((props) => (
-    <TextField InputProps={{ disableUnderline: true }} {...props} />
-))(({ theme }) => ({
-    '& .MuiFilledInput-root': {
-        border: '1px solid #e2e2e1',
-        overflow: 'hidden',
-        borderRadius: 4,
-        backgroundColor: theme.palette.mode === 'light' ? '#fcfcfb' : '#2b2b2b',
-        transition: theme.transitions.create([
-            'border-color',
-            'background-color',
-            'box-shadow',
-        ]),
-        '&:hover': {
-            backgroundColor: 'transparent',
-        },
-        '&.Mui-focused': {
-            backgroundColor: 'transparent',
-            boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
-            borderColor: theme.palette.primary.main,
-        },
-    },
-}));
+const stateList = ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttarakhand", "Uttar Pradesh", "West Bengal", "Andaman and Nicobar Islands", "Chandigarh", "Dadra and Nagar Haveli", "Daman and Diu", "Delhi", "Lakshadweep", "Puducherry"];
 
 const initState = {
+    country: "india",
     name: "",
     card: "",
-
+    state: "",
+    number: "",
+    expiry: "",
+    year: "",
+    cvv: "",
+    method: "card",
+    remember: "true"
 }
 
 const Checkout = () => {
-    const [state, setState] = React.useState('');
+    const [state, setState] = React.useState(initState);
     const { cart, total, isLoading } = useSelector(state => state.cart);
-    const { isLogin } = useSelector(state=>state.auth);
+    const { isLogin } = useSelector(state => state.auth);
     const [org, setOrg] = React.useState(total);
     const dispatch = useDispatch();
     const [open, setOpen] = React.useState(false);
     const [msg, setMsg] = React.useState(false);
     const history = useHistory();
 
-    console.log(1)
-
-    if ( !isLogin ){
+    if (!isLogin) {
         history.push("/auth");
     }
+
     const handleContinue = () => {
-        console.log("a")
-        dispatch( emptyCart() );
+        dispatch(emptyCart());
         history.push("/");
     };
 
-    
+
     const handleFailure = () => {
-        setOpen(false), 
-        setMsg(false)
+        setOpen(false);
+        setMsg(false);
     };
 
     React.useEffect(() => {
@@ -98,7 +84,7 @@ const Checkout = () => {
     const handleChange = (e) => {
         setState({
             ...state,
-            [e.target.name]: e.taget.value
+            [e.target.name]: e.target.value
         });
     };
 
@@ -106,23 +92,23 @@ const Checkout = () => {
         <Container maxWidth="lg">
             {
                 isLoading ? (
-                    <Box 
+                    <Box
                         sx={{
-                            width: "100%", 
-                            minWidth: "20rem", 
-                            minHeight: "20rem", 
-                            m: "auto", 
-                            height: "100%", 
-                            display: "flex", 
+                            width: "100%",
+                            minWidth: "20rem",
+                            minHeight: "20rem",
+                            m: "auto",
+                            height: "100%",
+                            display: "flex",
                             mt: 5,
                             justifyContent: "center"
                         }}
                     >
-                        <CircularProgress sx={{minHeight: "15rem", minWidth: "15rem" }}/>
+                        <CircularProgress sx={{ minHeight: "15rem", minWidth: "15rem" }} />
                     </Box>
                 ) : (
 
-                    <Box sx={{display: "flex", py: 3}}>
+                    <Box sx={{ display: "flex", py: 3 }}>
                         <Box sx={{ width: "60%", flexGrow: 1 }}>
                             <Typography variant="h3">
                                 Checkout
@@ -130,37 +116,132 @@ const Checkout = () => {
                             <Typography variant="body1">
                                 Billing Address
                             </Typography>
-                            <FormControl
-                                variant="filled"
-                                sx={{
-                                    maxWidth: "40%",
-                                    m: 1,
-                                    minWidth: 120,
-                                    border: "0.5px solid #67676767"
-                                }}
-                            >
-                                <InputLabel id="demo-simple-select-filled-label">Age</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-filled-label"
-                                    id="demo-simple-select-filled"
-                                    value={state.age}
-                                    onChange={handleChange}
+                            <Stack direction="row" sx={{ width: "80%" }} justifyContent="space-between">
+                                <FormControl
+                                    variant="filled"
+                                    sx={{
+                                        width: "45%",
+                                        mt: 1,
+                                        borderRadius: 0,
+                                    }}
                                 >
-                                    <MenuItem value={"India"}>India</MenuItem>
-                                </Select>
+                                    <InputLabel id="country-label">Country</InputLabel>
+                                    <Select
+                                        labelId="country-label"
+                                        id="country-label-select"
+                                        value={"india"}
+                                        onChange={handleChange}
+                                        disabled
+                                    >
+                                        <MenuItem value={"india"}>India</MenuItem>
+                                    </Select>
+
+                                </FormControl>
+                                <FormControl
+                                    variant="filled"
+                                    sx={{
+                                        width: "45%",
+                                        mt: 1,
+                                        border: "1px solid black",
+                                        borderRadius: 0,
+                                    }}
+                                >
+                                    <TextField
+                                        id="filled-select-state"
+                                        select
+                                        label="Select"
+                                        name="state"
+                                        value={state.state}
+                                        onChange={handleChange}
+                                        variant="filled"
+                                    >
+                                        {stateList.map((option) => (
+                                            <MenuItem key={option} value={option}>
+                                                {option}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+                                </FormControl>
+                            </Stack>
+                            <FormControl sx={{ m: 1, mt: 4, width: "80%" }}>
+                                <RadioGroup
+                                    name="method"
+                                    value={state.method}
+                                    onChange={handleChange}
+                                    sx={{ width: "100%" }}
+                                >
+                                    <FormControlLabel
+                                        value="card"
+                                        sx={{
+                                            border: "1px solid #44444444",
+                                            width: "100%",
+                                            p: 1
+                                        }}
+                                        control={<Radio />}
+                                        label="Credit/Debit Card"
+                                    />
+                                    <FormControlLabel
+                                        value="upi"
+                                        sx={{
+                                            border: "1px solid #44444444",
+                                            width: "100%",
+                                            p: 1
+                                        }}
+                                        control={<Radio />}
+                                        label="UPI"
+                                    />
+                                    <FormControlLabel
+                                        disabled
+                                        value="netnanking"
+                                        sx={{
+                                            border: "1px solid #44444444",
+                                            width: "100%",
+                                            p: 1
+                                        }}
+                                        control={<Radio />}
+                                        label="Net Banking"
+                                    />
+                                    <FormControlLabel
+                                        value="paytm"
+                                        sx={{
+                                            border: "1px solid #44444444",
+                                            width: "100%",
+                                            p: 1
+                                        }}
+                                        control={<Radio />}
+                                        label="PayTM"
+                                        disabled
+                                    />
+                                    <FormControlLabel
+                                        value="wallet"
+                                        sx={{
+                                            border: "1px solid #44444444",
+                                            width: "100%",
+                                            p: 1
+                                        }}
+                                        control={<Radio />}
+                                        label="Mobile Wallet"
+                                    />
+                                </RadioGroup>
                             </FormControl>
+                            <Box sx={{border: "0.25px solid #44444444", width: "77%", p: 2}}>    
+                                <Typography variant="body2" color="text.secondary">
+                                    In order to complete your transaction, we will transfer your request over to RazorPay
+                                </Typography>
+                            </Box>
                         </Box>
-                        <Card sx={{ 
-                            width: { md: "35%", sm: "50%"}, 
+                        <Card sx={{
+                            width: { md: "35%", sm: "50%" },
                             p: 3,
                             display: "flex",
                             flexDirection: "column",
                             gap: "0.5rem",
                             border: "0.5px solid #56567625",
-                            borderRadius: 0
+                            borderRadius: 0,
+                            height: "fit-content"
                         }}>
                             <Typography variant="h4">Summary</Typography>
-                            <Box sx={{display: "flex", justifyContent: "space-between"}}>
+                            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <Typography variant="body1" color="text.secondary">
                                     Original price:
                                 </Typography>
@@ -170,7 +251,7 @@ const Checkout = () => {
                             </Box>
                             {
                                 org - total > 0 && (
-                                    <Box sx={{display: "flex", justifyContent: "space-between"}}>
+                                    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                                         <Typography variant="body1" color="text.secondary">Coupon
                                             discounts:
                                         </Typography>
@@ -181,9 +262,9 @@ const Checkout = () => {
                                 )
                             }
                             <Divider />
-                            <Box sx={{display: "flex", justifyContent: "space-between"}}>
+                            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <Typography variant="h5">
-                                    Total: 
+                                    Total:
                                 </Typography>
                                 <Typography variant="h5">
                                     &#8377;{addCommas(total)}
@@ -200,7 +281,7 @@ const Checkout = () => {
                             </Typography>
 
                             <OutlinedBtn
-                                onClick={()=>displayRazorpay(setOpen, setMsg)}
+                                onClick={() => displayRazorpay(setOpen, setMsg, state.method)}
                                 sx={{
                                     bgcolor: "#A435E0",
                                     color: "white",
@@ -212,23 +293,22 @@ const Checkout = () => {
                                         bgcolor: "#A435F0"
                                     }
                                 }} text="Complete Payment" />
-
                         </Card>
                     </Box>
                 )
             }
-            <Snackbar open={open} 
-                TransitionComponent={TransitionDown} 
-                anchorOrigin={{ vertical: 'top', horizontal: 'center'} } 
-                autoHideDuration={2000} 
-                onClose={msg ? handleFailure : handleContinue }
+            <Snackbar open={open}
+                TransitionComponent={TransitionDown}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                autoHideDuration={2000}
+                onClose={msg ? handleFailure : handleContinue}
             >
-                <Alert 
-                 severity="success" sx={{ width: '100%', minWidth: "30rem" }}>
-                    {msg ? msg: "Order Placed Successfully!" };
+                <Alert
+                    severity="success" sx={{ width: '100%', minWidth: "30rem" }}>
+                    {msg ? msg : "Order Placed Successfully!"};
                 </Alert>
             </Snackbar>
-        </Container>
+        </Container >
     )
 };
 

@@ -28,6 +28,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { fetchCart } from "../../redux/actions/cart";
 import FavoriteBorderRoundedIcon from "@mui//icons-material/FavoriteBorderRounded";
 import { fetchWishlist } from "../../redux/actions/wishlist";
+import { fetchPurchased } from "../../redux/actions/purchase";
 
 const pages = [
   {
@@ -45,6 +46,7 @@ const pages = [
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = () => {
+  const { isLogin } = useSelector(state=>state.auth);
   const { cart } = useSelector(state=>state.cart);
   const { wishlist } = useSelector(state=>state.wishlist);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -76,7 +78,8 @@ const Navbar = () => {
   useEffect(() => {
     dispatch(fetchCart);
     dispatch(fetchWishlist);
-  }, [user]);
+    dispatch(fetchPurchased());
+  }, [isLogin]);
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -149,14 +152,13 @@ const Navbar = () => {
             </Box>
             <Box
               sx={{
-                flexGrow: 0,
                 display: { xs: "flex", md: "none" },
-                paddingRight: "10rem",
-                maxWidth: "6rem",
+                width: "70%",
+                justifyContent: "center"
               }}
             >
               <img
-                style={{ width: "100%", minWidth: "4rem" }}
+                style={{ width: "100%", width: "5rem" }}
                 src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
                 alt="logo"
               />
@@ -266,8 +268,8 @@ const Navbar = () => {
                       },
                     }}
                   >
-                    <Badge badgeContent={wishlist.length ?? 0} color="secondary">
-                      <FavoriteBorderRoundedIcon sx={{mb: 1, width: "2rem"}}/>
+                    <Badge sx={{mb: 1.5, height: "1.5rem"}} badgeContent={wishlist.length ?? 0} color="secondary">
+                      <FavoriteBorderRoundedIcon/>
                     </Badge>
                   </IconButton>
                   <Tooltip title={user?.result?.user?.name} placement="bottom">

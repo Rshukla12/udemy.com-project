@@ -13,6 +13,7 @@ const wishlistRouter = require('./routes/wishlist.route');
 const courseRouter = require('./routes/course.route');
 const instructorRouter = require('./routes/instructor.route');
 const searchRouter = require('./routes/search.route');
+const videoRouter = require('./routes/video.route');
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use("/wishlist", wishlistRouter);
 app.use("/course", courseRouter);
 app.use("/instructor", instructorRouter);
 app.use("/search", searchRouter);
+app.use("/video", videoRouter);
 
 const CONNECTION_URL = process.env.MONGO;
 const PORT = process.env.PORT|| 5000;

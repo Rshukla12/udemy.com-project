@@ -39,4 +39,7 @@ export const signUpByInstructor = (formData) => API.post('/instructor/signup', f
 
 
 
+
+export const fetchVideo = (id) => API.get(`/video/${id}`);
 // &tags=${searchQuery.tags} || none`
+export const fetchPurchased = () => API.get('/cart/purchased');
