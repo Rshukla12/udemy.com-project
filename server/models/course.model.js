@@ -60,7 +60,8 @@ const courseSchema = new mongoose.Schema({
         type: String
     },
     ratings:{
-        type:Number
+        type:Number,
+        default:0
     },
     course_total_lectures:{
         type: Number

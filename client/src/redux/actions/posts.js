@@ -57,7 +57,7 @@ export const createPost = (post, history) => async (dispatch) => {
 
     dispatch({ type: CREATE, payload: data });
 
-    history.push(`/posts/${data._id}`);
+    history.push(`/course/${data._id}`);
   } catch (error) {
     console.log(error);
   }

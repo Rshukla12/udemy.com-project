@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Container, Grow, Grid, AppBar, TextField, Button, Paper } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { Paper } from '@mui/material';
+// import { Container, Grow, Grid, AppBar, TextField, Button, Paper } from '@mui/material';
+// import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import ChipInput from 'material-ui-chip-input';
+// import ChipInput from 'material-ui-chip-input';
 
-import { getPostsBySearch } from '../../redux/actions/posts';
+// import { getPostsBySearch } from '../../redux/actions/posts';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
 import Pagination from '../Pagination';
@@ -22,11 +23,11 @@ const Home = () => {
   const searchQuery = query.get('searchQuery');
 
   const [currentId, setCurrentId] = useState(0);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const [search, setSearch] = useState('');
+  // const [search, setSearch] = useState('');
   const [tags, setTags] = useState([]);
-  const history = useHistory();
+  // const history = useHistory();
 
   // const searchPost = () => {
   //   if (search.trim() || tags) {
@@ -54,6 +55,7 @@ const Home = () => {
          
             <Posts setCurrentId={setCurrentId} />
             {/* <Form currentId={currentId} setCurrentId={setCurrentId} />  */}
+            {/* <Form />  */}
             {(!searchQuery && !tags.length) && (
               <Paper className={classes.pagination} elevation={6}>
                 <Pagination page={page} />
