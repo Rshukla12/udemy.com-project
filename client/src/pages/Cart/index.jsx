@@ -1,4 +1,4 @@
-import { Container, Typography, Box, CircularProgress } from "@mui/material";
+import { Container, Typography, Box, CircularProgress, TextField, Button } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,8 @@ import OutlinedBtn from "../../components/Buttons/ContainedBtn";
 import PopularCarousel from "../../components/Carousel/PopularCarousel";
 import CartCourseCard from "../../components/CartCourseCard/CartCourseCard";
 import { fetchCart } from "../../redux/actions/cart";
+import {  InputAdornment } from '@mui/material';
+import ContainedBtn from "../../components/Buttons/ContainedBtn";
 
 const Cart = () => {
     const { isLogin } = useSelector(state => state.auth);
@@ -29,19 +31,19 @@ const Cart = () => {
         <Container maxWidth="xl">
             {
                 isLoading ? (
-                    <Box 
+                    <Box
                         sx={{
-                            width: "100%", 
-                            minWidth: "20rem", 
-                            minHeight: "20rem", 
-                            m: "auto", 
-                            height: "100%", 
-                            display: "flex", 
+                            width: "100%",
+                            minWidth: "20rem",
+                            minHeight: "20rem",
+                            m: "auto",
+                            height: "100%",
+                            display: "flex",
                             mt: 5,
                             justifyContent: "center"
                         }}
                     >
-                        <CircularProgress sx={{minHeight: "15rem", minWidth: "15rem" }}/>
+                        <CircularProgress sx={{ minHeight: "15rem", minWidth: "15rem" }} />
                     </Box>
                 ) : (
                     <>
@@ -77,17 +79,38 @@ const Cart = () => {
                                                         </Typography>
                                                     )
                                                 }
-                                                <Typography variant="h6" 
-                                                    sx={{ 
-                                                        fontWeight: "600" 
+                                                <Typography variant="h6"
+                                                    sx={{
+                                                        fontWeight: "600"
                                                     }}
                                                 >
                                                     Promotions
                                                 </Typography>
 
+                                                <TextField
+                                                    name="discount"
+                                                    onChange={()=>null}
+                                                    variant="outlined"
+                                                    fullWidth
+                                                    label="Coupan Code"
+                                                    sx={{mb: 3, mt: 1}}
+                                                    InputProps={
+                                                        {
+                                                            endAdornment: (
+                                                                <InputAdornment position="end">
+                                                                    <Button
+                                                                    >
+                                                                        Apply
+                                                                    </Button>
+                                                                </InputAdornment>
+                                                            ),
+                                                        }
+                                                    }
+                                                />
+
                                                 <OutlinedBtn
-                                                    component={Link} 
-                                                    to={isLogin ? "/checkout" : "/auth"} 
+                                                    component={Link}
+                                                    to={isLogin ? "/checkout" : "/auth"}
                                                     sx={{
                                                         bgcolor: "#A435E0",
                                                         borderColor: "#A435E0",
@@ -97,8 +120,8 @@ const Cart = () => {
                                                         "&:hover": {
                                                             bgcolor: "#A435F0"
                                                         }
-                                                    }} 
-                                                    text="checkout" 
+                                                    }}
+                                                    text="checkout"
                                                 />
                                             </Stack>
                                         </Stack>
@@ -109,14 +132,14 @@ const Cart = () => {
                                             border: "0.25px solid gray",
                                             py: 3
                                         }}>
-                                            <Box 
-                                                component="img" 
-                                                src="https://s.udemycdn.com/browse_components/flyout/empty-shopping-cart-v2.jpg" 
-                                                sx={{ 
-                                                    width: "14rem", heigth: "10rem", m: "auto" 
-                                                }}     
+                                            <Box
+                                                component="img"
+                                                src="https://s.udemycdn.com/browse_components/flyout/empty-shopping-cart-v2.jpg"
+                                                sx={{
+                                                    width: "14rem", heigth: "10rem", m: "auto"
+                                                }}
                                             />
-                                            <Typography variant="body1" 
+                                            <Typography variant="body1"
                                                 sx={{ mt: 3, textAlign: "center" }}
                                             >
                                                 Your cart is empty. Keep shopping to find a course!

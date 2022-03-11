@@ -58,7 +58,7 @@ const SearchBar = () => {
         dispatch(getPostsBySearch({search}));
         history.push(`/search?searchQuery=${search || 'none'}`);
       } else {
-        history.push('/');
+        history.push('/course');
       }
     };
 

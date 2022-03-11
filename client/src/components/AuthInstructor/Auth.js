@@ -14,8 +14,8 @@ import { GoogleLogin } from "react-google-login";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import AppleIcon from "@mui/icons-material/Apple";
 import Icon from "./icon";
-import { signin, signup } from "../../redux/actions/auth";
-import { AUTH } from "../../redux/constants/actionTypes";
+import { signin, signup } from "../../redux/actions/instructorAuth";
+import { INSTRUCTORAUTH } from "../../redux/constants/actionTypes";
 import useStyles from "./styles";
 import Input from "./Input";
 
@@ -52,7 +52,7 @@ const SignUp = () => {
     const token = res?.tokenId;
 
     try {
-      dispatch({ type: AUTH, data: { result, token } });
+      dispatch({ type: INSTRUCTORAUTH, data: { result, token } });
 
       history.push("/");
     } catch (error) {
@@ -69,7 +69,7 @@ const SignUp = () => {
   return (
     <>
       <Container component="main" maxWidth="xs">
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} sx={{backgroundColor:'whitesmoke'}}>
           <Typography
             component="h4"
             variant="h7"
@@ -77,8 +77,8 @@ const SignUp = () => {
             className={classes.typography}
           >
             {isSignup
-              ? "Sign Up and Start Learning!"
-              : "Log In to Your Udemy Account!"}
+              ? "Sign Up to create courses and many more!"
+              : "Log In as an instructor!"}
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit}>
             <div style={{ marginBottom: "5px" }}>

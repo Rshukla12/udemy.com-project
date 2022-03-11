@@ -28,10 +28,18 @@ export const removeFromCart = (id) => API.patch(`/cart/remove`, {course_id: id})
 export const orderCart = (id) => API.post("http://localhost:5000/cart/order");
 export const emptyCart = (id) => API.delete(`/cart`);
 export const orderSuccess = (data) => API.post("http://localhost:5000/cart/success", data)
-// export const comment = (value, id) => API.post(`/posts/${id}/commentPost`, { value });
+export const comment = (value, id) => API.post(`/posts/${id}/commentPost`, { value });
 export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updatedPost);
 // export const deletePost = (id) => API.delete(`/posts/${id}`);
 export const signIn = (formData) => API.post('/user/signin', formData);
+export const signInByInstructor = (formData) => API.post('/instructor/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
+export const signUpByInstructor = (formData) => API.post('/instructor/signup', formData);
 
+
+
+
+
+export const fetchVideo = (id) => API.get(`/video/${id}`);
 // &tags=${searchQuery.tags} || none`
+export const fetchPurchased = () => API.get('/cart/purchased');

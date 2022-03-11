@@ -200,11 +200,33 @@ const orderSucess = async (req, res) => {
     }
 };
 
+const getPurchased = async (req, res) => {
+    try {
+        const user_id = req.user._id;
+
+        const purchased = await User.findById(user_id).populate({
+            path: "purchased",
+        })
+        .select({path: "purchased"})
+        .lean()
+        .exec();
+
+        if (!purchased || purchased.length)
+            return res.status(404).json({ msg: "purchased is emplty" });
+        
+        res.status(200).json({ purchased: purchased.purchased, items: purchased.length });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "something went wrong!" });
+    }
+};
+
 module.exports = {
   getCart,
   addToCart,
   removeFromCart,
   emptyCart,
   order,
-  orderSucess
+  orderSucess,
+  getPurchased
 };
