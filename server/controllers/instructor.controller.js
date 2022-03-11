@@ -64,11 +64,11 @@ const signUpByInstructor = async (req, res) => {
             if ( isAlreadyInstructor ) return res.status(400).json({msg: "Already instructor!"});
         }
 
-        const instructor = await Instructor.create({info,isInstructor, creator: user.name, courses: [], user: user});
+        const result = await Instructor.create({info,isInstructor, creator: user.name, courses: [], user: user});
         
         const token = jwt.sign( { id: user._id }, secret, { expiresIn: "1h" });
         
-        res.status(201).json({instructor,token});
+        res.status(201).json({result,token});
     } catch (err) {
         console.log(err);
         res.status(500).json({ msg: "something went wrong!" });
@@ -93,8 +93,8 @@ const signInByInstructor = async (req, res) => {
             return res.status(400).json({ message: "Invalid credentials" });
 
         const token = jwt.sign({ id: oldUser._id }, secret, { expiresIn: "1h" });
-        const instructor = oldUser;
-        res.status(200).json({ instructor,token });
+        const result = oldUser;
+        res.status(200).json({ result,isInstructor,token });
     } catch (err) {
         res.status(500).json({ message: "Something went wrong" });
     }
