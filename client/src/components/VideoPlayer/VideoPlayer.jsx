@@ -35,9 +35,9 @@ const VideoPlayer = ({ course, open, onClose }) => {
             const { data } = await API.fetchVideo(course._id);
             setVideo(data);
         } catch ( err ) {
-            if ( err.toString().indexOf("403") ) {
+            if ( err.toString().includes("403") ) {
                 setErr("Please purchase this course!");
-            } else if ( err.toString().indexOf("404") ) {
+            } else if ( err.toString().includes("404") ) {
                 setErr("This course is not available yet!");
             } else {
                 setErr(true);

@@ -62,7 +62,7 @@ const Checkout = () => {
 
     const handleContinue = () => {
         dispatch(emptyCart());
-        history.push("/");
+        history.push("/purchased");
     };
 
 
