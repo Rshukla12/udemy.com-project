@@ -22,7 +22,7 @@ const CourseCard = ({ course }) => {
         <CourseToolTip title={course_name} course={course} tagline={tagline} details={description} id={id}>
             <Card sx={{ width: 250, borderRadius: 0, cursor: "pointer" }} elevation={0} >
                 <CardMedia
-                    sx={{borderRadius: 0, minHeight: 150}}
+                    sx={{borderRadius: 0, height: 150}}
                     component="img"
                     image={img}
                     alt={course_name}
