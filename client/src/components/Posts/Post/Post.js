@@ -4,7 +4,7 @@ const Post = ({ post, setCurrentId }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const history = useHistory();
 
-  const userId = user?.result.googleId || user?.result?._id;
+  // const userId = user?.result.googleId || user?.result?._id;
 
   const openPost = (e) => {
     history.push(`/course/${post._id}`);

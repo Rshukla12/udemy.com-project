@@ -177,45 +177,54 @@ const Navbar = () => {
             </Box>
 
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <PopMenu />
+              <PopMenu/>
             </Box>
 
             <Box sx={{ display: { xs: "none", md: "flex" }, width: "48%" }}>
               <SearchBar />
             </Box>
 
-            <Box sx={{ flexGrow: 1, display: { xs: "none", lg: "flex" } }}>
-              {pages.map((page) => (
-                <PopMenu key={page.text} text={page.text}>
-                  <Container
-                    sx={{
-                      pb: 2,
-                    }}
-                  >
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        textAlign: "center",
-                        fontWeight: 600,
-                        py: 1,
-                      }}
-                    >
-                      {page.body}
-                    </Typography>
-                    <ContainedBtn
-                    text={page.btn}
-                      // {{page.btn} ==='Learn More' ? {page.btn} component={Link} to={'/auth'} : {page.btn}}
-                      sx={{
-                        px: 3,
-                        py: 2.5,
-                        height: "30px",
-                        minWidth: "stretch",
-                      }}
-                    />
-                  </Container>
-                </PopMenu>
-              ))}
-            </Box>
+{
+  user?.result? (<Container sx={{pt:2}}><Link style={{textDecoration: "none",color: "black"}} to='/instructor/course'>Instructor</Link></Container>):
+  (<Box sx={{ flexGrow: 1, display: { xs: "none", lg: "flex" } }}>
+  {pages.map((page) => (
+    <PopMenu key={page.text} text={page.text}>
+      <Container
+        sx={{
+          pb: 2,
+        }}
+      >
+        <Typography
+          variant="body1"
+          sx={{
+            textAlign: "center",
+            fontWeight: 600,
+            py: 1,
+          }}
+        >
+          {page.body}
+        </Typography>
+        <ContainedBtn  component={Link}
+         to="/instructor"
+        text={page.btn}
+          // {{page.btn} ==='Learn More' ? {page.btn} component={Link} to={'/auth'} : {page.btn}}
+          sx={{
+            px: 3,
+            py: 2.5,
+            height: "30px",
+            minWidth: "stretch",
+          }}
+        />
+      </Container>
+    </PopMenu>
+  ))}
+</Box>)
+}
+          
+          
+
+
+
 
             <Stack direction="row" spacing={2}>
               <IconButton
@@ -275,7 +284,7 @@ const Navbar = () => {
                       <FavoriteBorderRoundedIcon/>
                     </Badge>
                   </IconButton>
-                  <Tooltip title={user?.result.name} placement="bottom">
+                  <Tooltip title={user?.result?.user?.name} placement="bottom">
                     <Avatar
                       className={classes.purple}
                       sx={{
@@ -286,7 +295,7 @@ const Navbar = () => {
                       src={user?.result.imageUrl}
                       onClick={()=>history.push("/purchased")}
                     >
-                      {user?.result.name.charAt(0)}
+                      {user?.result?.user?.name.charAt(0)}
                     </Avatar>
                   </Tooltip>
                   <Button
