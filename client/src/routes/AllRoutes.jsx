@@ -9,8 +9,8 @@ import Purchased from '../../src/pages/Purchased';
 import Category from '../../src/pages/Category';
 import Auth from '../../src/components/Auth/Auth';
 import PostDetails from '../../src/components/PostDetails/PostDetails';
-import CreatorOrTag from '../../src/components/CreatorOrTag/CreatorOrTag';
-
+// import CreatorOrTag from '../../src/components/CreatorOrTag/CreatorOrTag';
+import Instructor from '../../src/components/Auth/Auth'
 const AllRoutes = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
 
@@ -24,6 +24,7 @@ const AllRoutes = () => {
       <Route path="/wishlist" exact component={Wishlist} />
       <Route path="/purchased" exact component={Purchased} />
       <Route path="/category" exact component={Category} />
+      <Route path="/instructor" exact component={Instructor} />
       {/* <Route path="/posts" exact component={Home} /> */}
       {/* <Route path="/posts/search" exact component={Home} /> */}
       <Route path="/course/:id" exact component={PostDetails} />

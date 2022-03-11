@@ -188,7 +188,8 @@ const Navbar = () => {
                     >
                       {page.body}
                     </Typography>
-                    <ContainedBtn
+                    <ContainedBtn  component={Link}
+                to="/instructor"
                     text={page.btn}
                       // {{page.btn} ==='Learn More' ? {page.btn} component={Link} to={'/auth'} : {page.btn}}
                       sx={{
