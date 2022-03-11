@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, CircularProgress, Button, Checkbox, Box } from "@mui/material";
+import { Grid, CircularProgress,Container, Button, Checkbox, Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Post from "./Post/Post";
@@ -48,6 +48,7 @@ const Posts = ({ setCurrentId }) => {
 
   if (!posts.length && !isLoading) return "No posts";
   return isLoading ? (
+   
     <Box
       sx={{
         width: "100%",
@@ -65,6 +66,7 @@ const Posts = ({ setCurrentId }) => {
   ) : (
     <>
       {/* <Test/> */}
+      <Container maxWidth="xl">
       <div style={{ display: "flex", marginBottom: "50px" }}>
         <Button
           sx={{
@@ -316,6 +318,7 @@ const Posts = ({ setCurrentId }) => {
           ))}
         </Grid>
       </Grid>
+      </Container>
     </>
   );
 };
