@@ -25,10 +25,10 @@ import decode from "jwt-decode";
 import * as actionType from "../../redux/constants/actionTypes";
 import useStyles from "./styles";
 import Tooltip from "@mui/material/Tooltip";
-import { fetchCart } from "../../redux/actions/cart";
 import FavoriteBorderRoundedIcon from "@mui//icons-material/FavoriteBorderRounded";
-import { fetchWishlist } from "../../redux/actions/wishlist";
-import { fetchPurchased } from "../../redux/actions/purchase";
+import { emptyCart, fetchCart } from "../../redux/actions/cart";
+import { emptyWishlist, fetchWishlist } from "../../redux/actions/wishlist";
+import { emptyPurchased, fetchPurchased } from "../../redux/actions/purchase";
 
 const pages = [
   {
@@ -57,8 +57,11 @@ const Navbar = () => {
 
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
-    history.push("/auth");
+    dispatch(emptyCart());
+    dispatch(emptyWishlist());
+    dispatch(emptyPurchased());
     setUser(null);
+    history.push("/auth");
   };
 
   const [btn,setBtn] = useState(false)
@@ -76,8 +79,8 @@ const Navbar = () => {
   }, [location]);
 
   useEffect(() => {
-    dispatch(fetchCart);
-    dispatch(fetchWishlist);
+    dispatch(fetchCart());
+    dispatch(fetchWishlist());
     dispatch(fetchPurchased());
   }, [isLogin]);
 
@@ -99,7 +102,14 @@ const Navbar = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Stack sx={{ width: "100%", px: 1 }} spacing={1.25} direction="row">
-            <Box sx={{ display: { xs: "none", md: "flex" }, maxWidth: "6rem" }}>
+            <Box 
+              onClick={()=>history.push("/")} 
+              sx={{ 
+                display: { xs: "none", md: "flex" },
+                maxWidth: "6rem",
+                cursor: "pointer" 
+              }}
+            >
               <img
                 style={{ width: "100%", minWidth: "4rem" }}
                 src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
@@ -154,8 +164,10 @@ const Navbar = () => {
               sx={{
                 display: { xs: "flex", md: "none" },
                 width: "70%",
-                justifyContent: "center"
+                justifyContent: "center",
+                cursor: "pointer"
               }}
+              onClick={()=>history.push("/")}
             >
               <img
                 style={{ width: "100%", width: "5rem" }}
@@ -266,9 +278,13 @@ const Navbar = () => {
                   <Tooltip title={user?.result.name} placement="bottom">
                     <Avatar
                       className={classes.purple}
-                      sx={{bgcolor: "slateblue"}}
+                      sx={{
+                        bgcolor: "slateblue",
+                        cursor: "pointer"
+                      }}
                       alt={user?.result.name}
                       src={user?.result.imageUrl}
+                      onClick={()=>history.push("/purchased")}
                     >
                       {user?.result.name.charAt(0)}
                     </Avatar>

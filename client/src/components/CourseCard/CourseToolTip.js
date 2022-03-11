@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
-import FavoriteBorderRoundedIcon from "@mui//icons-material/FavoriteBorderRounded";
+import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import Zoom from '@mui/material/Zoom';
 import useMediaQuery from '@mui/material/useMediaQuery';

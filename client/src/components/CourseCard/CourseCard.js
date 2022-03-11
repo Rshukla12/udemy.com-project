@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import RatingComponent from "./RatingComponent";
 import CourseToolTip from "./CourseToolTip";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const CourseCard = ({ course }) => {
   const { isLogin } = useSelector((state) => state.auth);
@@ -40,6 +41,8 @@ const CourseCard = ({ course }) => {
   if (isLogin) salePrice = 399;
   const newPrice = on_discount && price > salePrice ? salePrice : price;
 
+  const history = useHistory();
+
   return (
     <>
       <CourseToolTip
@@ -50,9 +53,9 @@ const CourseCard = ({ course }) => {
         id={id}
       >
         <Card
+          onClick={()=>history.push("/course/"+id)}
           sx={{ width: 250, borderRadius: 0, cursor: "pointer" }}
           elevation={0}
-          onClick={() => setOpen(true)}
         >
           <CardMedia
             sx={{ borderRadius: 0, height: 150 }}
