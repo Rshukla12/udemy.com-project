@@ -6,10 +6,12 @@
 ### ***This is a Team project with two member team***
 #### Anamika Gupta
 > [Linkedin](https://www.linkedin.com/in/anamika-gupta-rec/)
+
 > [Github](https://github.com/anamikarec)
 #### Ravi Shukla
-> [](Linkendin)
-> [](Github)
+> [Linkendin](https://www.linkedin.com/in/rshukla12/)
+
+> [Github](https://github.com/Rshukla12)
 # Video Link
 #### We have shared a demo presentation of this project "udemy.com".
 https://drive.google.com/file/d/1BLI-x_JIPJP_KDZqyP4H6ZFuJ_EFjG54/view?usp=sharing
