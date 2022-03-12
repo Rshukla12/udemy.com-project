@@ -66,11 +66,16 @@ https://drive.google.com/file/d/1BLI-x_JIPJP_KDZqyP4H6ZFuJ_EFjG54/view?usp=shari
 ![Screenshot (874)](https://user-images.githubusercontent.com/65801101/158005688-252727da-290f-421c-a1f8-a49fb2bf6a4e.png)
 
 > ***Footer of the website***
+
 ![Screenshot (875)](https://user-images.githubusercontent.com/65801101/158005695-b02d7309-5047-4570-9404-b5280c4be9b8.png)
 
 2. Signin and Signup Page of the udemy.com
+
+> ***Here user can signin or signup by google auth as well as he can signin or signup manually***
+
 ![screencapture-localhost-3000-auth-2022-03-12-10_52_56](https://user-images.githubusercontent.com/65801101/158005269-1396727b-6b0b-498a-9313-9d99deead265.png)
-2. 1. 
+
+> ***SignIn Page***
 
 ![screencapture-localhost-3000-auth-2022-03-12-10_52_36](https://user-images.githubusercontent.com/65801101/158005520-affb878e-002b-4f73-9cb6-fa3c91f9970a.png)
 
