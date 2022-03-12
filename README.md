@@ -6,3 +6,10 @@
 # Video Link
 #### We have shared a demo presentation of this project "udemy.com".
 https://drive.google.com/file/d/1BLI-x_JIPJP_KDZqyP4H6ZFuJ_EFjG54/view?usp=sharing
+
+
+#### Technology We Used
+1. CSS | Material UI
+2. JavaScript | NodeJS
+3. React JS | Redux
+4. ExpressJS | MongoDB
