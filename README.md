@@ -1,2 +1,8 @@
 # udemy.com-project
-This is a team project with two member team. Here in this project, we will be creating a web application with the same features and functionalities that udemy.com has. Here we will be using whole MERN in our project. This project will be created from scratch and we will be implementing all the features from the user view and admin view as well. Here admin can create course and can modify in the course and user can visit the course, purchase the paid courses and many more features we will be implementing.
+> Udemy is a platform that allows instructors to build online courses on their preferred topics. Using Udemy's course development tools, they can upload videos, PowerPoint presentations, PDFs, audio, ZIP files and live classes to create courses. Instructors can also engage and interact with users via online discussion boards.[25]
+
+> Udemy is a platform that allows instructors to build online courses on their preferred topics. Using Udemy's course development tools, they can upload videos, PowerPoint presentations, PDFs, audio, ZIP files and live classes to create courses. Instructors can also engage and interact with users via online discussion boards.
+> Udemy is an online learning and teaching marketplace with over 183000 courses and 40 million students. Learn programming, marketing, data science and more.
+# Video Link
+#### We have shared a demo presentation of this project "udemy.com".
+https://drive.google.com/file/d/1BLI-x_JIPJP_KDZqyP4H6ZFuJ_EFjG54/view?usp=sharing
