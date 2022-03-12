@@ -14,23 +14,24 @@ https://drive.google.com/file/d/1BLI-x_JIPJP_KDZqyP4H6ZFuJ_EFjG54/view?usp=shari
 4. ExpressJS | MongoDB
 # Features
 1. Landing Page of the Udemy.com
-1. 1. 
+1. 1. Here from the navbar, user can search for any course
 ![Screenshot (846)](https://user-images.githubusercontent.com/65801101/158005211-cf4f40a0-dfbf-4d18-ad0c-977fe5b6f559.png)
 
-1. 2. 
+1. 2. Here user can select the courses based on there preferences, if python is selected
 ![Screenshot (847)](https://user-images.githubusercontent.com/65801101/158005230-6415e4f8-dfe5-4fc1-bd1d-a97f1d93ea30.png)
-1. 3. 
+1. 3. If javascript is selected
 ![Screenshot (848)](https://user-images.githubusercontent.com/65801101/158005240-4c0ce34e-f514-4bbc-9399-9d0b50e1303c.png)
-1. 4. 
+1. 4. When the user will hover any any of the course, a beautiful popup will be shown with the course details for that particular course
 ![Screenshot (849)](https://user-images.githubusercontent.com/65801101/158005255-a9514261-fa3e-476d-a27e-a7116eb79d4e.png)
-1. 5. 
-![screencapture-localhost-3000-instructor-course-2022-03-12-10_57_00](https://user-images.githubusercontent.com/65801101/158005267-60971248-0460-4cf2-8d01-fe3147589b1a.png)
-1. 6. 
-![screencapture-localhost-3000-auth-2022-03-12-10_52_56](https://user-images.githubusercontent.com/65801101/158005269-1396727b-6b0b-498a-9313-9d99deead265.png)
-1. 7. 
+1. 5. Some portion of the landing page
 ![Screenshot (851)](https://user-images.githubusercontent.com/65801101/158005257-e6f652a4-d9b7-47f2-8250-77c28cd0c34f.png)
+2. Signin and Signup Page of the udemy.com
+![screencapture-localhost-3000-auth-2022-03-12-10_52_56](https://user-images.githubusercontent.com/65801101/158005269-1396727b-6b0b-498a-9313-9d99deead265.png)
+2. 1. 
 
+![screencapture-localhost-3000-auth-2022-03-12-10_52_36](https://user-images.githubusercontent.com/65801101/158005520-affb878e-002b-4f73-9cb6-fa3c91f9970a.png)
 
+![screencapture-localhost-3000-instructor-course-2022-03-12-10_57_00](https://user-images.githubusercontent.com/65801101/158005267-60971248-0460-4cf2-8d01-fe3147589b1a.png)
 
 
 # Instructions to Run the Code
