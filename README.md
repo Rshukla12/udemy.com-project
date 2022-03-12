@@ -15,16 +15,21 @@ https://drive.google.com/file/d/1BLI-x_JIPJP_KDZqyP4H6ZFuJ_EFjG54/view?usp=shari
 # Features
 1. Landing Page of the Udemy.com
 a. Here from the navbar, user can search for any course
-![Screenshot (846)](https://user-images.githubusercontent.com/65801101/158005211-cf4f40a0-dfbf-4d18-ad0c-977fe5b6f559.png)
+
+![Screenshot (876)](https://user-images.githubusercontent.com/65801101/158006033-959415f4-2db7-4a33-9e17-c29e3e3a0097.png)
 
 b. Here user can select the courses based on there preferences, if python is selected
-![Screenshot (847)](https://user-images.githubusercontent.com/65801101/158005230-6415e4f8-dfe5-4fc1-bd1d-a97f1d93ea30.png)
+![Screenshot (877)](https://user-images.githubusercontent.com/65801101/158006049-d7ce0e30-a9b8-4c29-84d1-ce41ef44c61f.png)
+
 c. If javascript is selected
-![Screenshot (848)](https://user-images.githubusercontent.com/65801101/158005240-4c0ce34e-f514-4bbc-9399-9d0b50e1303c.png)
+![Screenshot (879)](https://user-images.githubusercontent.com/65801101/158006054-71cdf4cd-a847-4d52-84e3-932ecb21e49b.png)
+
 d. When the user will hover any any of the course, a beautiful popup will be shown with the course details for that particular course
-![Screenshot (849)](https://user-images.githubusercontent.com/65801101/158005255-a9514261-fa3e-476d-a27e-a7116eb79d4e.png)
+![Screenshot (880)](https://user-images.githubusercontent.com/65801101/158006063-25d7feb9-cafc-46cc-a331-761c70698329.png)
+
 e. User can view these courses also
-![Screenshot (870)](https://user-images.githubusercontent.com/65801101/158005773-4b3d81f8-519b-438a-aae7-e1f27e232393.png)
+![Screenshot (880)](https://user-images.githubusercontent.com/65801101/158006071-05ddd732-b213-4f34-a848-a0d21a03abae.png)
+
 f. Top category section
 ![Screenshot (871)](https://user-images.githubusercontent.com/65801101/158005672-0c5bee40-8d9d-4afa-8071-565ac5d7c60d.png)
 g. Featured topics by category
