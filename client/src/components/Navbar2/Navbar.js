@@ -60,6 +60,7 @@ const Navbar = () => {
     dispatch(emptyCart());
     dispatch(emptyWishlist());
     dispatch(emptyPurchased());
+    dispatch({ type: actionType.EMPTY_REVIEWS });
     setUser(null);
     history.push("/auth");
   };

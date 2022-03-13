@@ -15,6 +15,7 @@ import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
 import { addToCart, removeFromCart } from '../../redux/actions/cart';
 import { addToWishlist, removeFromWishlist } from '../../redux/actions/wishlist';
+import CoursePageSideCard from '../CoursePageSideCard/CoursePageSideCard';
 
 const Post = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
@@ -134,7 +135,7 @@ const Post = () => {
                 </Typography>
               </Stack>
             </div>
-            <Card sx={{ width: "100%", maxWidth: "23rem" }}>
+            {/* <Card sx={{ width: "100%", maxWidth: "23rem" }}>
               <CardMedia
                 sx={{ borderRadius: 0, height: 180 }}
                 component="img"
@@ -226,7 +227,8 @@ const Post = () => {
                   </Stack>
                 </Stack>
               </CardContent>
-            </Card>
+            </Card> */}
+            <CoursePageSideCard course={post} onPlay={() => setOpenPlayer(true)} />
             {/* <div style={{ maxWidth: "30rem" }} className={classes.imageSection}>
             <img className={classes.media} src={post.img || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
           </div> */}

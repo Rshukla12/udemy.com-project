@@ -6,8 +6,15 @@ const User = require("../models/user.model");
 const getReviewById = async ( req, res ) => {
     try {
         const id = req.params.id;
-        const review = await Review.findById(id).lean().exec();
-        console.log(review)
+        const review = await Review.findById(id)
+            .populate([{
+                path: "course",
+            }, {
+                path: "author",
+                select: "name"
+            }])
+            .lean()
+            .exec();
         if ( !review ) 
             return res.status(404).json({msg: "Invalid or review not found!"});
         return res.status(200).json(review);
@@ -22,7 +29,13 @@ const getReviewById = async ( req, res ) => {
 const getReviewsOnCourse = async ( req, res ) => {
     try {
         const id = req.params.id;
-        const reviews = await Review.find({course: id}).lean().exec();
+        const reviews = await Review.find({course: id})
+            .populate({
+                path: "author",
+                select: "name"
+            })
+            .lean()
+            .exec();
 
         if ( !reviews.length ) 
             return res.status(404).json({msg: "No reviews present!"});
