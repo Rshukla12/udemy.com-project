@@ -6,6 +6,7 @@ import {makeStyles} from '@mui/styles'
 import AllRoutes from './routes/AllRoutes';
 import Navbar from './components/Navbar2/Navbar';
 import Footer from './components/Footer/Footer';
+import InstructorDashboard from './components/InstructorDashBoard/InstructorDashboard';
 const theme = createTheme();
 
 const App = () => {
@@ -20,6 +21,9 @@ const App = () => {
     <BrowserRouter>
     <ThemeProvider theme={theme}>
     <Navbar/>
+
+    {/* <InstructorDashboard/> */}
+
        <AllRoutes/>
       <Footer/>
       </ThemeProvider>
