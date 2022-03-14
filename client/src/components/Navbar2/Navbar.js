@@ -29,7 +29,7 @@ import FavoriteBorderRoundedIcon from "@mui//icons-material/FavoriteBorderRounde
 import { emptyCart, fetchCart } from "../../redux/actions/cart";
 import { emptyWishlist, fetchWishlist } from "../../redux/actions/wishlist";
 import { emptyPurchased, fetchPurchased } from "../../redux/actions/purchase";
-
+// import InstructorDashboard from "../InstructorDashBoard/InstructorDashboard";
 const pages = [
   {
     text: "Udemy Business",

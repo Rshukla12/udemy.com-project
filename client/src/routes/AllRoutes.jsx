@@ -12,6 +12,7 @@ import PostDetails from '../../src/components/PostDetails/PostDetails';
 // import CreatorOrTag from '../../src/components/CreatorOrTag/CreatorOrTag';
 import Form from '../../src/components/Form/Form';
 import InstructorAuth from '../../src/components/AuthInstructor/Auth'
+import InstructorDashboard from '../components/InstructorDashBoard/InstructorDashboard';
 const AllRoutes = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
 
@@ -33,7 +34,8 @@ const AllRoutes = () => {
         <Route path="/course/:id" exact component={PostDetails} />
         {/* <Route path={['/creators/:name', '/tags/:name']} component={CreatorOrTag} /> */}
         <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/course" />)} />
-        <Route path="/instructor/course" exact component={Form} />
+        <Route path="/instructor/course" exact component={InstructorDashboard} />
+        <Route path="/instructor/course/1" exact component={Form} />
       </Switch>
     </div>
   )
