@@ -14,7 +14,13 @@
 > [Github](https://github.com/Rshukla12)
 # Video Link
 #### We have shared a demo presentation of this project "udemy.com".
-https://drive.google.com/file/d/1BLI-x_JIPJP_KDZqyP4H6ZFuJ_EFjG54/view?usp=sharing
+
+> [Video](https://drive.google.com/file/d/1BLI-x_JIPJP_KDZqyP4H6ZFuJ_EFjG54/view?usp=sharing)
+
+# Deployed link of the project
+
+> [udemy.com](https://udemy-triage-project.netlify.app/)
+
 
 # Technology We Used
 1. CSS | Material UI
