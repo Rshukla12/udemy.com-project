@@ -90,8 +90,8 @@ const Post = () => {
     else if ( post ) setReviewed(false);
   }, [reviews, post]);
 
-  const onReview = (data) => {
-    api.writeReview( post._id, data );
+  const onReview = async (data) => {
+    await api.writeReview( post._id, data );
     setReviewed(true);
   }
 

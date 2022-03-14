@@ -13,7 +13,7 @@ const Carousel = ({ children, len, size }) => {
   const [sliderRef, setSliderRef] = useState(null);
   const [active, setActive] = useState(0);
   const sliderSettings = {
-    slidesToShow: size ? size : 5 > len ? len : 5,
+    slidesToShow: size ? size : 4 > len ? len : 4,
     slidesToScroll: 3 > len ? 1 : 3,
     infinite: false,
     arrows: false,
