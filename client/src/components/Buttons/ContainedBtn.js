@@ -6,6 +6,7 @@ const ContainedBtn = ({ text, onClick, sx, ...props }) => {
             variant="contained"
             disableRipple
             {...props}
+            onClick={()=>onClick()}
             sx={{
                 bgColor: "black",
                 color: "white",

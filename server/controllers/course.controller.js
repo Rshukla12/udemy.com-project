@@ -40,7 +40,11 @@ const getCourseById = async (req, res) => {
                 path: "instructors",
                 select: "creator"
             },{
-                path: "reviews"
+                path: "reviews",
+                populate: {
+                    path: "author",
+                    select: "name"
+                }
             }])
             .lean()
             .exec();

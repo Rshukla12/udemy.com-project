@@ -17,13 +17,13 @@ import SystemUpdateAltOutlinedIcon from '@mui/icons-material/SystemUpdateAltOutl
 import AllInclusiveOutlinedIcon from '@mui/icons-material/AllInclusiveOutlined';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import { CircularProgress } from '@mui/material';
 import { addToCart, removeFromCart } from '../../redux/actions/cart';
 import { addToWishlist, removeFromWishlist } from '../../redux/actions/wishlist';
 import OutlinedBtn from "../Buttons/OutlinedBtn"
+
 const menuList = [
     {
         icon: <OndemandVideoIcon fontSize="small" />,
@@ -104,17 +104,17 @@ const CoursePageSideCard = ({ course, onPlay }) => {
 
         <Card
             sx={{ 
-                width: 320, 
+                width: 350, 
                 borderRadius: 0, 
                 position: "fixed",
-                right: 20,
+                right: 180,
                 top: 80,
                 zIndex: 100 
             }}
             elevation={10}
         >
             <CardMedia
-                sx={{ borderRadius: 0, height: 160, }}
+                sx={{ borderRadius: 0, height: 180, width: "99%", py: 0.1, m: "auto" }}
                 component="img"
                 image={img}
                 alt={course_name}
@@ -155,9 +155,9 @@ const CoursePageSideCard = ({ course, onPlay }) => {
                             </Typography>
                             {on_discount && price !== newPrice ? (
                                 <Typography
-                                    variant="h6"
+                                    variant="body1"
                                     color="text.secondary"
-                                    sx={{ textDecoration: "line-through" }}
+                                    sx={{ pt: 0.5, textDecoration: "line-through" }}
                                 >
                                     &#8377;{price}
                                 </Typography>
@@ -172,7 +172,7 @@ const CoursePageSideCard = ({ course, onPlay }) => {
                         isLoading ? (
                             <Box
                                 sx={{
-                                    height: "45px",
+                                    height: "50px",
                                     minWidth: "200px"
                                 }}
                             >
@@ -188,8 +188,8 @@ const CoursePageSideCard = ({ course, onPlay }) => {
                                     bgcolor: "#A435F0",
                                     color: "white",
                                     borderRadius: "0px",
-                                    height: "45px",
-                                    minWidth: "220px",
+                                    height: "50px",
+                                    minWidth: "250px",
                                     fontSize: "1.1rem",
                                     "&:hover": {
                                         color: "white",
@@ -208,8 +208,8 @@ const CoursePageSideCard = ({ course, onPlay }) => {
                             <Box
                                 sx={{
                                     color: "black",
-                                    height: "43px",
-                                    width: "42px",
+                                    height: "47px",
+                                    width: "46px",
                                     border: "1px solid #444",
                                 }}
                             >
@@ -219,9 +219,9 @@ const CoursePageSideCard = ({ course, onPlay }) => {
                             <IconButton
                                 variant="outlined"
                                 sx={{
-                                    width: "45px",
+                                    width: "50px",
                                     color: "black",
-                                    height: "45px",
+                                    height: "50px",
                                     borderRadius: 0,
                                     border: "1px solid #444",
                                 }}

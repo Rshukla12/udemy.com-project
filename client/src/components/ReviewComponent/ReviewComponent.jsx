@@ -12,14 +12,21 @@ import { Link } from 'react-router-dom';
 import { useState } from "react";
 
 const ReviewComponent = ({ review }) => {
-    const liked = useState(false);
-    const disliked = useState(false);
-
+    const [liked, setLiked] = useState(false);
+    const [disliked, setDisliked] = useState(false);
+    const handleLike = () => {
+        if ( !liked && disliked ) setDisliked(false); 
+        setLiked(!liked);
+    }
+    const handleDislike = () => {
+        if ( liked && !disliked ) setLiked(false); 
+        setDisliked(!disliked);
+    }
     return (
         <Box sx={{ display: "flex", gap: 2, width: "100%", p: 1 }}>
-            <Avatar sx={{ bgcolor: "#1C1D1F" }}>{review.user.name[0].toUpperCase()}</Avatar>
+            <Avatar sx={{ bgcolor: "#1C1D1F" }}>{review.author.name[0].toUpperCase()}</Avatar>
             <Box>
-                <Typography variant="h4" sx={{ color: "#1C1D1F" }}>{review.user.name}</Typography>
+                <Typography variant="h4" sx={{ color: "#1C1D1F" }}>{review.author.name}</Typography>
                 <Box>
                     <Rating readOnly value={review.rating} size="large" />
                     <Typography variant="subtitle1" sx={{ color: "#1C1D1F" }}>{moment(review.createdAt).fromNow()}</Typography>
@@ -30,32 +37,35 @@ const ReviewComponent = ({ review }) => {
                 <Typography variant="body2" color="text.secondary">
                     Was this review helpful?
                 </Typography>
-                <Box sx={{ display: "flex", gap: 5 }}>
+                <Box sx={{ display: "flex", gap: 1 }}>
                     <IconButton
                         variant="outlined"
+                        onClick={handleLike}
                         sx={{
-                            mt: 2,
+                            mt: 1,
                             color: "black",
                             borderRadius: "50%",
                             height: "40px",
                             border: "1px solid #444",
+                            fontSize: "small"
                         }} 
                     >  
-                        { liked ? <ThumbUpOffAltIcon /> : <ThumbUpAltIcon />}
+                        { liked ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
                     </IconButton>
                     <IconButton 
+                        onClick={handleDislike}
                         variant="outlined"
                         sx={{
-                            mt: 2,
+                            mt: 1,
                             color: "black",
                             borderRadius: "50%",
                             height: "40px",
                             border: "1px solid #444",
                         }}
                     >
-                        {disliked ? <ThumbDownOffAltIcon /> : <ThumbDownAltIcon />}
+                        {disliked ? <ThumbDownAltIcon /> : <ThumbDownOffAltIcon /> }
                     </IconButton>
-                    <Link to="/" sx={{color: "#67676767", fontSize: "small"}}>Report</Link>
+                    <Link to="/" style={{color: "#67676767", marginTop: "1rem"}}>Report</Link>
                 </Box>
             </Box>
         </Box >
