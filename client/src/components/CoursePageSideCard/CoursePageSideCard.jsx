@@ -106,8 +106,9 @@ const CoursePageSideCard = ({ course, onPlay }) => {
             sx={{ 
                 width: 350, 
                 borderRadius: 0, 
-                position: "fixed",
-                right: 180,
+                position:"absolute",
+                // position: "fixed",
+                right: 80,
                 top: 80,
                 zIndex: 100 
             }}

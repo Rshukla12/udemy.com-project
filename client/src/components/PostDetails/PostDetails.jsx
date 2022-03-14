@@ -45,7 +45,7 @@ const Post = () => {
     dispatch(getPost(id));
     dispatch(fetchPurchased());
     dispatch(fetchReviewsByUser(authData?._id));
-  }, [id]);
+  }, [id,reviewed]);
 
   useEffect(() => {
     if (post) {
@@ -180,13 +180,13 @@ const Post = () => {
           </Box>
           { bought && !reviewed && <ReviewBox onSubmit={onReview} /> }
           {!!posts.length && (
-            <Box sx={{ width: "100%" }}>
+            <Box sx={{ width: "100%",mt:6 }}>
 
               <div className={classes.section}>
                 <Typography gutterBottom variant="h5">You might also like:</Typography>
                 <Divider />
-                <Box sx={{ ml: -5, width: "52rem"}}>
-                  <CourseCarousel courses={posts} isLoading={isLoading} size={3} />
+                <Box sx={{ ml: -5, width: "67rem"}}>
+                  <CourseCarousel courses={posts} isLoading={isLoading} size={4} />
                 </Box>
               </div>
             </Box>
