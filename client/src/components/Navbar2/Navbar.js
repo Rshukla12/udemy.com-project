@@ -60,6 +60,7 @@ const Navbar = () => {
     dispatch(emptyCart());
     dispatch(emptyWishlist());
     dispatch(emptyPurchased());
+    dispatch({ type: actionType.EMPTY_REVIEWS });
     setUser(null);
     history.push("/auth");
   };
@@ -96,8 +97,13 @@ const Navbar = () => {
 
   return (
     <AppBar
-      position="static"
-      sx={{ bgcolor: "white", color: "black", py: 0.5 }}
+      position="absolute"
+      sx={{ 
+        bgcolor: "white", 
+        color: "black", 
+        py: 0.5,
+        zIndex: 501
+      }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>

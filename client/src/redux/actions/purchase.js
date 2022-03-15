@@ -7,7 +7,6 @@ export const fetchPurchased = () => async (dispatch) => {
         let result;
         if (localStorage.getItem('profile')) {
             result = await api.fetchPurchased();
-            console.log(result.data.purchased);
             dispatch({type: FETCH_PURCHASED, payload: {
                 purchased: result.data.purchased
             }});

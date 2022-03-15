@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
@@ -104,7 +105,17 @@ const CourseToolTip = ({ title, tagline, details=[], course, children }) => {
                             }
                         </Stack>
                         <Stack direction="row" spacing={1} >
-                            {   isLoading ? <CircularProgress/> : (
+                            {   isLoading ? (
+                                    <Box                 
+                                        sx={{
+                                            px: 2,
+                                            height: "40px",
+                                            minWidth: "200px"
+                                        }} 
+                                    >
+                                        <CircularProgress/>
+                                    </Box>
+                                ) : (
                                     <Button
                                         variant="contained"
                                         onClick={() => bought ? history.push("/purchased") :  state ? dispatch(removeFromCart(course._id)) : dispatch(addToCart(course))}

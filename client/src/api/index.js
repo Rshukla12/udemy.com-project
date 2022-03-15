@@ -36,10 +36,8 @@ export const signInByInstructor = (formData) => API.post('/instructor/signin', f
 export const signUp = (formData) => API.post('/user/signup', formData);
 export const signUpByInstructor = (formData) => API.post('/instructor/signup', formData);
 
-
-
-
-
+export const fetchReviews = (id) => API.get('/review/user/' + id);
+export const writeReview = (id, data) => API.post('/review/course/' + id, data);
 export const fetchVideo = (id) => API.get(`/video/${id}`);
 // &tags=${searchQuery.tags} || none`
 export const fetchPurchased = () => API.get('/cart/purchased');

@@ -36,7 +36,7 @@ const VideoPlayer = ({ course, open, onClose }) => {
             setVideo(data);
         } catch ( err ) {
             if ( err.toString().includes("403") ) {
-                setErr("Please purchase this course!");
+                setErr("Buy this course, to view this content!");
             } else if ( err.toString().includes("404") ) {
                 setErr("This course is not available yet!");
             } else {
