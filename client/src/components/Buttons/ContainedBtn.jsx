@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 
-const ContainedBtn = ({ text, onClick, sx, ...props }) => {
+const ContainedBtn = ({ text, sx, ...props }) => {
     return (
         <Button
             variant="contained"

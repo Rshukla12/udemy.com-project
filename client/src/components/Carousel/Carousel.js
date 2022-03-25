@@ -9,21 +9,20 @@ import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import styles from "./Carousel.module.css";
 
-const Carousel = ({ children, len }) => {
+const Carousel = ({ children, len, size }) => {
   const [sliderRef, setSliderRef] = useState(null);
   const [active, setActive] = useState(0);
   const sliderSettings = {
-    slidesToShow: 5 > len ? len : 5,
-    lazyLoad: true,
-    slidesToScroll: 3,
+    slidesToShow: size ? size : 4 > len ? len : 4,
+    slidesToScroll: 3 > len ? 1 : 3,
     infinite: false,
     arrows: false,
     speed: 900, // ms
     autoplay: false,
-    initialSlide: 1,
+    initialSlide: 0,
     responsive: [
       {
-        breakpoint: 1168,
+        breakpoint: 1200,
         settings: {
           slidesToShow: 4,
           slidesToScroll: 2,
@@ -37,14 +36,14 @@ const Carousel = ({ children, len }) => {
         }
       },
       {
-        breakpoint: 868,
+        breakpoint: 768,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
         }
       },
       {
-        breakpoint: 568,
+        breakpoint: 460,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -53,7 +52,6 @@ const Carousel = ({ children, len }) => {
     ],
     beforeChange: (current, next) => setActive(next),
   };
-  console.log(len);
 
   return (
     <Container maxWidth="xl" sx={{p: 0, m: 0}}>

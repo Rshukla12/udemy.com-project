@@ -52,10 +52,11 @@ const getInstructorById = async (req, res) => {
     }
 };
 
-const createInstructor = async (req, res) => {
+const signUpByInstructor = async (req, res) => {
     try {
         let user = req.user;
-        const { info, email, fullName, password } = req.body;
+        let { info,isInstructor, email, fullName, password } = req.body;
+        info = info || "Good in Speaking, Learning and Teaching"
         if (!user) user = await User.create({ email, password, name: `${fullName}` });
         else {
             const isAlreadyInstructor = await Instructor.findOne({user: user._id});
@@ -63,19 +64,46 @@ const createInstructor = async (req, res) => {
             if ( isAlreadyInstructor ) return res.status(400).json({msg: "Already instructor!"});
         }
 
-        const result = await Instructor.create({info, creator: user.name, courses: [], user: user});
+        const result = await Instructor.create({info,isInstructor, creator: user.name, courses: [], user: user});
         
         const token = jwt.sign( { id: user._id }, secret, { expiresIn: "1h" });
         
-        res.status(201).json({token});
+        res.status(201).json({result,token});
     } catch (err) {
         console.log(err);
         res.status(500).json({ msg: "something went wrong!" });
     }
 };
 
+
+
+
+const signInByInstructor = async (req, res) => {
+    const { email, password,isInstructor } = req.body;
+
+    try {
+        let oldUser = await User.findOne({ email });
+
+        if (!oldUser)
+            return res.status(404).json({ message: "User doesn't exist" });
+
+        const isPasswordCorrect = await oldUser.comparePassword(password);
+
+        if (!isPasswordCorrect)
+            return res.status(400).json({ message: "Invalid credentials" });
+
+        const token = jwt.sign({ id: oldUser._id }, secret, { expiresIn: "1h" });
+        const result = oldUser;
+        res.status(200).json({ result,isInstructor,token });
+    } catch (err) {
+        res.status(500).json({ message: "Something went wrong" });
+    }
+};
+
+
 module.exports = {
     getInstructors,
     getInstructorById,
-    createInstructor
+    signInByInstructor,
+    signUpByInstructor
 };

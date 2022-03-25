@@ -25,10 +25,11 @@ import decode from "jwt-decode";
 import * as actionType from "../../redux/constants/actionTypes";
 import useStyles from "./styles";
 import Tooltip from "@mui/material/Tooltip";
-import { fetchCart } from "../../redux/actions/cart";
 import FavoriteBorderRoundedIcon from "@mui//icons-material/FavoriteBorderRounded";
-import { fetchWishlist } from "../../redux/actions/wishlist";
-
+import { emptyCart, fetchCart } from "../../redux/actions/cart";
+import { emptyWishlist, fetchWishlist } from "../../redux/actions/wishlist";
+import { emptyPurchased, fetchPurchased } from "../../redux/actions/purchase";
+// import InstructorDashboard from "../InstructorDashBoard/InstructorDashboard";
 const pages = [
   {
     text: "Udemy Business",
@@ -45,6 +46,7 @@ const pages = [
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = () => {
+  const { isLogin } = useSelector(state=>state.auth);
   const { cart } = useSelector(state=>state.cart);
   const { wishlist } = useSelector(state=>state.wishlist);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -55,8 +57,12 @@ const Navbar = () => {
 
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
-    history.push("/auth");
+    dispatch(emptyCart());
+    dispatch(emptyWishlist());
+    dispatch(emptyPurchased());
+    dispatch({ type: actionType.EMPTY_REVIEWS });
     setUser(null);
+    history.push("/auth");
   };
 
   const [btn,setBtn] = useState(false)
@@ -74,9 +80,10 @@ const Navbar = () => {
   }, [location]);
 
   useEffect(() => {
-    dispatch(fetchCart);
-    dispatch(fetchWishlist);
-  }, [user]);
+    dispatch(fetchCart());
+    dispatch(fetchWishlist());
+    dispatch(fetchPurchased());
+  }, [isLogin]);
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -90,13 +97,25 @@ const Navbar = () => {
 
   return (
     <AppBar
-      position="static"
-      sx={{ bgcolor: "white", color: "black", py: 0.5 }}
+      position="absolute"
+      sx={{ 
+        bgcolor: "white", 
+        color: "black", 
+        py: 0.5,
+        zIndex: 501
+      }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Stack sx={{ width: "100%", px: 1 }} spacing={1.25} direction="row">
-            <Box sx={{ display: { xs: "none", md: "flex" }, maxWidth: "6rem" }}>
+            <Box 
+              onClick={()=>history.push("/")} 
+              sx={{ 
+                display: { xs: "none", md: "flex" },
+                maxWidth: "6rem",
+                cursor: "pointer" 
+              }}
+            >
               <img
                 style={{ width: "100%", minWidth: "4rem" }}
                 src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
@@ -149,59 +168,69 @@ const Navbar = () => {
             </Box>
             <Box
               sx={{
-                flexGrow: 0,
                 display: { xs: "flex", md: "none" },
-                paddingRight: "10rem",
-                maxWidth: "6rem",
+                width: "70%",
+                justifyContent: "center",
+                cursor: "pointer"
               }}
+              onClick={()=>history.push("/")}
             >
               <img
-                style={{ width: "100%", minWidth: "4rem" }}
+                style={{ width: "100%", width: "5rem" }}
                 src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
                 alt="logo"
               />
             </Box>
 
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <PopMenu />
+              <PopMenu/>
             </Box>
 
             <Box sx={{ display: { xs: "none", md: "flex" }, width: "48%" }}>
               <SearchBar />
             </Box>
 
-            <Box sx={{ flexGrow: 1, display: { xs: "none", lg: "flex" } }}>
-              {pages.map((page) => (
-                <PopMenu key={page.text} text={page.text}>
-                  <Container
-                    sx={{
-                      pb: 2,
-                    }}
-                  >
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        textAlign: "center",
-                        fontWeight: 600,
-                        py: 1,
-                      }}
-                    >
-                      {page.body}
-                    </Typography>
-                    <ContainedBtn
-                    text={page.btn}
-                      // {{page.btn} ==='Learn More' ? {page.btn} component={Link} to={'/auth'} : {page.btn}}
-                      sx={{
-                        px: 3,
-                        py: 2.5,
-                        height: "30px",
-                        minWidth: "stretch",
-                      }}
-                    />
-                  </Container>
-                </PopMenu>
-              ))}
-            </Box>
+{
+  user?.result? (<Box sx={{pt:2}}><Link style={{textDecoration: "none",color: "black"}} to='/instructor/course'>Instructor</Link></Box>):
+  (<Box sx={{ flexGrow: 1, display: { xs: "none", lg: "flex" } }}>
+  {pages.map((page) => (
+    <PopMenu key={page.text} text={page.text}>
+      <Container
+        sx={{
+          pb: 2,
+        }}
+      >
+        <Typography
+          variant="body1"
+          sx={{
+            textAlign: "center",
+            fontWeight: 600,
+            py: 1,
+          }}
+        >
+          {page.body}
+        </Typography>
+        <ContainedBtn  component={Link}
+         to="/instructor"
+        text={page.btn}
+          // {{page.btn} ==='Learn More' ? {page.btn} component={Link} to={'/auth'} : {page.btn}}
+          sx={{
+            px: 3,
+            py: 2.5,
+            height: "30px",
+            minWidth: "stretch",
+          }}
+        />
+      </Container>
+    </PopMenu>
+  ))}
+</Box>)
+}
+          
+          
+
+
+
 
             <Stack direction="row" spacing={2}>
               <IconButton
@@ -257,18 +286,22 @@ const Navbar = () => {
                       },
                     }}
                   >
-                    <Badge badgeContent={wishlist.length ?? 0} color="secondary">
-                      <FavoriteBorderRoundedIcon sx={{mb: 1, width: "2rem"}}/>
+                    <Badge sx={{mb: 1.5, height: "1.5rem"}} badgeContent={wishlist.length ?? 0} color="secondary">
+                      <FavoriteBorderRoundedIcon/>
                     </Badge>
                   </IconButton>
-                  <Tooltip title={user?.result.name} placement="bottom">
+                  <Tooltip title={user?.result?.user?.name} placement="bottom">
                     <Avatar
                       className={classes.purple}
-                      sx={{bgcolor: "slateblue"}}
+                      sx={{
+                        bgcolor: "slateblue",
+                        cursor: "pointer"
+                      }}
                       alt={user?.result.name}
                       src={user?.result.imageUrl}
+                      onClick={()=>history.push("/purchased")}
                     >
-                      {user?.result.name.charAt(0)}
+                      {user?.result?.user?.name.charAt(0)}
                     </Avatar>
                   </Tooltip>
                   <Button

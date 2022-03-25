@@ -107,7 +107,7 @@ const data = [{
 }];
 
 
-const CourseCarousel = ({ courses = data, isLoading }) => {
+const CourseCarousel = ({ courses = data, isLoading, size }) => {
   return (
       <Box sx={{pt: 0, mt: 0}}>
         {
@@ -116,7 +116,7 @@ const CourseCarousel = ({ courses = data, isLoading }) => {
               <CircularProgress sx={{minHeight: "15rem", minWidth: "15rem" }}/>
             </Box>
           ) : (
-            <Carousel len={courses.length}>
+            <Carousel len={courses.length} size={size}>
               {
                 courses.map(course => (
                   <CourseCard key={course.id*8912 + 1} course={course} />

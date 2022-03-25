@@ -1,4 +1,4 @@
-import { ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST, EMPTY_WISHLIST, START_LOADING_WISHLIST, END_LOADING_WISHLIST  } from "../constants/actionTypes";
+import { ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST, EMPTY_WISHLIST, START_LOADING_WISHLIST, END_LOADING_WISHLIST, FETCH_WISHLIST  } from "../constants/actionTypes";
 import { loadData, saveData } from "../../utils/localStorage";
 
 const wishlist =  loadData("Wishlist") || [];
@@ -15,6 +15,13 @@ const wishlistReducer = ( state=initWishlist, action ) => {
         }
         case END_LOADING_WISHLIST: {
             return { ...state, isLoadingWishlist: false };
+        }
+        case FETCH_WISHLIST: {
+            saveData("Wishlist", action.payload.wishlist);
+            return {
+                ...state,
+                wishlist: action.payload.wishlist
+            }
         }
         case ADD_TO_WISHLIST: {
             for ( const item of state.wishlist ){
