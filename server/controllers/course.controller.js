@@ -1,6 +1,7 @@
 const Course = require("../models/course.model");
 const Instructor = require("../models/instructor.model");
-const User = require("../models/user.model");
+
+const client = require("../config/redis.config");
 
 const getCourses = async (req, res) => {
     try {
@@ -11,9 +12,17 @@ const getCourses = async (req, res) => {
 
         sort = sort || "asc";
         
+        const key = `courses.${limit}.${startIndex}`;
+
+        let result = await client.get(key);
+        if ( result ){
+            result = JSON.parse(result);
+            return res.status(200).json(result);
+        }
+
         const total = await Course.countDocuments({});
-        
-        let result = await Course.find({})
+
+        result = await Course.find({})
             .sort({ purchased: sort })
             .skip(startIndex)
             .limit(Number(limit))
@@ -25,6 +34,7 @@ const getCourses = async (req, res) => {
             .exec();
         if (!result || !result.length)
             return res.status(404).json({ msg: "courses doesn't exist!" });
+        await client.set(key, JSON.stringify({data: result, currentPage: Number(page) || 1, numberOfPages: Math.ceil(total / limit)}));
         res.status(200).json({data: result, currentPage: Number(page) || 1, numberOfPages: Math.ceil(total / limit)});
     } catch (err) {
         console.log(err);
@@ -35,7 +45,15 @@ const getCourses = async (req, res) => {
 const getCourseById = async (req, res) => {
     try {
         const id = req.params.id;
-        const result = await Course.findById(id)
+
+        let result = await client.get(`course.id.${id}`);
+        
+        if ( result ) {
+            result = JSON.parse(result);
+            return res.status(200).json(result);    
+        }
+
+        result = await Course.findById(id)
             .populate([{
                 path: "instructors",
                 select: "creator"
@@ -50,6 +68,9 @@ const getCourseById = async (req, res) => {
             .exec();
         if (!result)
             return res.status(404).json({ msg: "course doesn't exist!" }); 
+        
+        client.set(`course.id.${id}`, JSON.stringify(result));
+        
         res.status(200).json(result);
     } catch (err) {
         console.log(err);
@@ -66,7 +87,15 @@ const getCourseByTag = async (req, res) => {
         sort = sort || "asc";
         
         const tag = req.params.tagName?.toLowerCase();
-        const result = await Course.find({ tags: {$in: [ tag ]} })
+        
+        let result = await client.get(`course.tag.${tag}`);
+        
+        if ( result ){
+            result = JSON.parse(result);
+            return res.status(200).json(result);        
+        }
+
+        result = await Course.find({ tags: {$in: [ tag ]} })
             .sort({ purchased: sort })
             .limit(Number(limit))
             .skip(skip)
@@ -81,6 +110,7 @@ const getCourseByTag = async (req, res) => {
         if (!result || !result.length)
             return res.status(404).json({ msg: "courses doesn't exist!" });
 
+        await client.set(`course.tag.${tag}`, JSON.stringify(result));
         res.status(200).json(result);
     } catch (err) {
         console.log(err);
@@ -135,6 +165,9 @@ const createCourse = async (req, res) => {
                 }
             });
         }
+
+        client.flushAll();
+
         res.status(201).json(course);
     } catch (err) {
         console.log(err);

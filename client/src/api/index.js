@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://localhost:5000' });
+const API = axios.create({ baseURL: 'https://fast-earth-93528.herokuapp.com' });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {
@@ -25,9 +25,9 @@ export const addToCart = (id) => API.patch(`/cart/add`, {course_id: id});
 export const addMulToCart = (ids) => API.patch(`/cart/add`, {courses: ids});
 export const addMulToWishlist = (ids) => API.patch(`/wishlist/add`, {courses: ids});
 export const removeFromCart = (id) => API.patch(`/cart/remove`, {course_id: id});
-export const orderCart = (id) => API.post("http://localhost:5000/cart/order");
+export const orderCart = (id) => API.post("/cart/order");
 export const emptyCart = (id) => API.delete(`/cart`);
-export const orderSuccess = (data) => API.post("http://localhost:5000/cart/success", data)
+export const orderSuccess = (data) => API.post("/cart/success", data)
 export const comment = (value, id) => API.post(`/posts/${id}/commentPost`, { value });
 export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updatedPost);
 // export const deletePost = (id) => API.delete(`/posts/${id}`);

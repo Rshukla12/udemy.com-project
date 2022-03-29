@@ -110,7 +110,7 @@ const CoursePageSideCard = ({ course, onPlay }) => {
                 // position: "fixed",
                 right: 80,
                 top: 80,
-                zIndex: 100 
+                zIndex: 1 
             }}
             elevation={10}
         >

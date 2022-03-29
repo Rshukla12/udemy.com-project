@@ -1,10 +1,14 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
+const connect = require("./config/db.config");
+const client = require("./config/redis.config");
+
 const Review = require("./models/review.model");
 const Course = require("./models/review.model");
+
+const PORT =  process.env.PORT || 5000;
 
 const postRoutes = require('./routes/posts');
 const userRouter = require('./routes/user');
@@ -33,11 +37,16 @@ app.use("/search", searchRouter);
 app.use("/review", reviewRouter);
 app.use("/video", videoRouter);
 
-const CONNECTION_URL = process.env.MONGO;
-const PORT = process.env.PORT|| 5000;
+const start = async () => {
+  try {
+    await connect();
+    await client.connect();
+    app.listen(PORT, () => {
+      console.log("server is running on :" , PORT)
+    })
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
-  .catch((error) => console.log(`${error} did not connect`));
-
-mongoose.set('useFindAndModify', false);
+start();
